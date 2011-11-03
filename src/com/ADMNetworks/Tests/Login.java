@@ -66,6 +66,42 @@ public class Login {
 			Assert.assertTrue(custom.isElementPresent(driver, By.id("UsefulDocuments")));
 			Assert.assertTrue(selenium.isTextPresent("Search for Cases"));
 			// ERROR: Caught exception [ERROR: Unsupported command [isTextPresent]]
+			driver.findElement(By.id("Clients")).click();
+			Assert.assertTrue(selenium.isTextPresent("List Clients"));
+			Assert.assertTrue(selenium.isTextPresent("Search for clients"));
+			Assert.assertTrue(selenium.isTextPresent("Search by ID, name or postal code"));
+			driver.findElement(By.linkText("All")).click();
+			driver.findElement(By.id("Agents")).click();
+			Assert.assertTrue(selenium.isTextPresent("List Agents"));
+			Assert.assertTrue(selenium.isTextPresent("Search for agents"));
+			driver.findElement(By.id("Claims")).click();
+			Assert.assertTrue(selenium.isTextPresent("List Claims"));
+			Assert.assertTrue(selenium.isTextPresent("CLAIM TYPE"));
+			Assert.assertTrue(selenium.isTextPresent("INSURER"));
+			Assert.assertTrue(selenium.isTextPresent("SCHEME"));
+			Assert.assertTrue(selenium.isTextPresent("AGENT"));
+			Assert.assertTrue(selenium.isTextPresent("CLIENT"));
+			Assert.assertTrue(selenium.isTextPresent("DATES"));
+			driver.findElement(By.id("Admin")).click();
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Schemes\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Questions\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Documents\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Insurers\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Insurer Rates and Fees\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Endorsement Library\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Website\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Scheme Rule Builder\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"GO\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Data Lookups\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Postcodes\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Insurer Ledger\"]")));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Group Editor\"]")));
+			driver.findElement(By.id("Reports")).click();
+			Assert.assertTrue(selenium.isTextPresent("Reports"));		
+			Assert.assertTrue(selenium.isTextPresent("Filter by..."));
+			Assert.assertTrue(selenium.isTextPresent("Run detailed reports"));
+			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"New Report\"]")));
+			driver.findElement(By.id("UsefulDocuments")).click();
 		}
 	
 }
