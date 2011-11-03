@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project [
+]>
+
+<project name="S4" default="runAll" basedir=".">  
+
+<!-- ========== Initialize Properties =================================== -->
+    <property environment="env"/>
+    <property file="./build.properties"/>
+    
+    <!--<property name="webSite" value="http://www.manta.com" />-->
+    <property name="seleniumHost" value="localhost" />
+    <property name="seleniumPort" value="4444" />
+    <property name="browser" value="*firefox" />
+    <property name="hubPollerIntervalInSeconds" value="30" />
+   	
+   <target name="start-server">
+
+        <java jar="${ws.home}/lib/selenium-server.jar" fork="true" spawn="true" >
+            <arg line="-timeout 30"/>
+            <arg line="-port ${seleniumPort}"/>
+        </java>
+
+        <echo taskname="waitfor" message="Wait for proxy server launch" />
+
+        <waitfor maxwait="2" maxwaitunit="minute" checkevery="100">        
+            <http url="http://localhost:${seleniumPort}/selenium-server/driver/?cmd=testComplete"/>
+        </waitfor>
+        <echo>Selenium Server started</echo>
+        
+    </target>
+	
+	<target name="stop-server">
+        <get taskname="selenium-shutdown"
+            src="http://localhost:${seleniumPort}/selenium-server/driver/?cmd=shutDownSeleniumServer"
+            dest="result.txt" ignoreerrors="true" />
+        <echo taskname="selenium-shutdown" message="Selenium Server Shutdowned." />
+    </target>
+	
+	
+    <target name="start-selenium-server">
+        <java jar="${ws.home}/lib/selenium-server.jar" fork="true"/>
+    </target>
+	
+
+    <target name="setClassPath" unless="test.classpath">
+        <path id="classpath_jars">
+            <fileset dir="${ws.home}/lib" includes="*.jar"/>
+        </path>
+        <pathconvert pathsep=":" 
+            property="test.classpath" 
+            refid="classpath_jars"/>
+    </target>
+
+    <target name="init" depends="setClassPath">
+        <tstamp>
+            <format property="start.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+        <condition property="ANT" 
+            value="${env.ANT_HOME}/bin/ant.bat" 
+            else="${env.ANT_HOME}/bin/ant">
+                    <os family="windows" />
+        </condition>
+        <taskdef name="testng" classpath="${test.classpath}"
+             classname="org.testng.TestNGAntTask" /> 
+    </target>
+  
+    <!-- all -->
+  
+
+    <!-- clean -->
+    <target name="clean">
+        <delete dir="${test.dest}"/>
+    </target>
+
+    <!-- compile -->
+    <target name="compile" depends="init, clean" > 
+		<delete includeemptydirs="true" quiet="true">
+            <fileset dir="${test.dest}" includes="**/*"/>
+		</delete>
+        <echo message="making directory..."/>
+		<mkdir dir="${test.dest}"/>
+        <!-- <echo message="classpath: ${test.classpath}"/> -->
+        <echo message="compiling..."/>
+        <javac
+            debug="true" 
+            destdir="${test.dest}" 
+            includes="*/*.java" 
+            srcdir="${test.src}" 
+            target="1.5" 
+            classpath="${test.classpath}"          
+  
+        ></javac>
+      </target>
+
+    <!-- bin -->
+    <target name="build" depends="init">
+    </target>
+
+    <!-- run -->
+    
+	<target name="runAll" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" suitename="singletest">	
+            <xmlfileset dir="${ws.home}/config" includes="All.xml"/>			
+        </testng>        
+    </target>
+	
+	<target name="CreateTitle" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" suitename="singletest">	
+            <xmlfileset dir="${ws.home}/config" includes="CreateTitle.xml"/>			
+        </testng>        
+    </target>
+	
+	<!-- ****************** targets not used ****************** -->
+ 
+</project>
