@@ -13,31 +13,35 @@ import com.thoughtworks.selenium.Selenium;
 public class Login {
 	
 	private WebDriver driver;
-	private String baseUrl;
+	private String baseUrl1;
+	private String baseUrl2;
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
-		
-	@BeforeSuite
+	
+	@DataProvider(name = "DP1")
+    public Object[][] createData() {
+	baseUrl1 = readp.readApplicationFile("URL");
+	baseUrl2 = readp.readApplicationFile("URLLabs");
+        Object[][] retObjArr={{baseUrl1},
+                            {baseUrl2}};
+        return(retObjArr);
+    }
+	
+	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = custom.CreateObject(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-	@AfterSuite
+	@AfterMethod
 	public void tearDown() throws Exception {
 		driver.quit();	
 		
 	}	
 
-	@Test
-	public void testLogin() throws Exception {
-			
-			baseUrl = readp.readApplicationFile("URL");
-			driver.get(baseUrl);		
-			Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("AboutUs")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("GetaQuote")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ContactUs")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Existing Users Login")));
+	@Test (dataProvider = "DP1")
+	public void testLogin(String Url) throws Exception {		
+			driver.get(Url);		
+			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
 			custom.Login(driver,selenium, "Admin");		
 			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("My Homepage")));
@@ -54,18 +58,16 @@ public class Login {
 			Assert.assertTrue(custom.isElementPresent(driver, By.id("Reports")));
 			Assert.assertTrue(custom.isElementPresent(driver, By.id("UsefulDocuments")));
 			Assert.assertTrue(selenium.isTextPresent("Search for Cases"));
+			// ERROR: Caught exception [ERROR: Unsupported command [isTextPresent]]
 			driver.findElement(By.id("Clients")).click();
-			Thread.sleep(2000);
 			Assert.assertTrue(selenium.isTextPresent("List Clients"));
 			Assert.assertTrue(selenium.isTextPresent("Search for clients"));
 			Assert.assertTrue(selenium.isTextPresent("Search by ID, name or postal code"));
 			driver.findElement(By.linkText("All")).click();
 			driver.findElement(By.id("Agents")).click();
-			Thread.sleep(2000);
 			Assert.assertTrue(selenium.isTextPresent("List Agents"));
 			Assert.assertTrue(selenium.isTextPresent("Search for agents"));
 			driver.findElement(By.id("Claims")).click();
-			Thread.sleep(2000);
 			Assert.assertTrue(selenium.isTextPresent("List Claims"));
 			Assert.assertTrue(selenium.isTextPresent("CLAIM TYPE"));
 			Assert.assertTrue(selenium.isTextPresent("INSURER"));
@@ -74,7 +76,6 @@ public class Login {
 			Assert.assertTrue(selenium.isTextPresent("CLIENT"));
 			Assert.assertTrue(selenium.isTextPresent("DATES"));
 			driver.findElement(By.id("Admin")).click();
-			Thread.sleep(2000);
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Schemes\"]")));
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Questions\"]")));
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Documents\"]")));
@@ -89,7 +90,6 @@ public class Login {
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Insurer Ledger\"]")));
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Group Editor\"]")));
 			driver.findElement(By.id("Reports")).click();
-			Thread.sleep(2000);
 			Assert.assertTrue(selenium.isTextPresent("Reports"));		
 			Assert.assertTrue(selenium.isTextPresent("Filter by..."));
 			Assert.assertTrue(selenium.isTextPresent("Run detailed reports"));

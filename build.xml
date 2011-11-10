@@ -105,12 +105,12 @@
         </testng>        
     </target>
 	
-	<target name="CreateTitle" depends="compile,init">
+	<target name="login" depends="compile,init">
         <testng classpath="${test.classpath}:${test.dest}" suitename="singletest">	
-            <xmlfileset dir="${ws.home}/config" includes="CreateTitle.xml"/>			
+            <xmlfileset dir="${ws.home}/config" includes="login.xml"/>			
         </testng>        
     </target>
 	
-	<!-- ****************** targets not used ****************** -->
+    <!-- ****************** targets not used ****************** -->
  
 </project>
