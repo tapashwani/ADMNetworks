@@ -9,40 +9,8 @@
     <property file="./build.properties"/>
     
     <!--<property name="webSite" value="http://www.manta.com" />-->
-    <property name="seleniumHost" value="localhost" />
-    <property name="seleniumPort" value="4444" />
-    <property name="browser" value="*firefox" />
-    <property name="hubPollerIntervalInSeconds" value="30" />
-   	
-   <target name="start-server">
-
-        <java jar="${ws.home}/lib/selenium-server.jar" fork="true" spawn="true" >
-            <arg line="-timeout 30"/>
-            <arg line="-port ${seleniumPort}"/>
-        </java>
-
-        <echo taskname="waitfor" message="Wait for proxy server launch" />
-
-        <waitfor maxwait="2" maxwaitunit="minute" checkevery="100">        
-            <http url="http://localhost:${seleniumPort}/selenium-server/driver/?cmd=testComplete"/>
-        </waitfor>
-        <echo>Selenium Server started</echo>
-        
-    </target>
-	
-	<target name="stop-server">
-        <get taskname="selenium-shutdown"
-            src="http://localhost:${seleniumPort}/selenium-server/driver/?cmd=shutDownSeleniumServer"
-            dest="result.txt" ignoreerrors="true" />
-        <echo taskname="selenium-shutdown" message="Selenium Server Shutdowned." />
-    </target>
-	
-	
-    <target name="start-selenium-server">
-        <java jar="${ws.home}/lib/selenium-server.jar" fork="true"/>
-    </target>
-	
-
+    <property name="test-results.dir" value="test-output" />
+   
     <target name="setClassPath" unless="test.classpath">
         <path id="classpath_jars">
             <fileset dir="${ws.home}/lib" includes="*.jar"/>
@@ -71,15 +39,17 @@
     <!-- clean -->
     <target name="clean">
         <delete dir="${test.dest}"/>
+		<delete dir="${test-results.dir}" />
     </target>
 
     <!-- compile -->
     <target name="compile" depends="init, clean" > 
 		<delete includeemptydirs="true" quiet="true">
-            <fileset dir="${test.dest}" includes="**/*"/>
+            <fileset dir="${test.dest}" includes="**/*"/>			
 		</delete>
         <echo message="making directory..."/>
 		<mkdir dir="${test.dest}"/>
+		<mkdir dir="${test-results.dir}"/>
         <!-- <echo message="classpath: ${test.classpath}"/> -->
         <echo message="compiling..."/>
         <javac
@@ -94,20 +64,43 @@
       </target>
 
     <!-- bin -->
-    <target name="build" depends="init">
+    <target name="build" depends="CasesTab,login">
     </target>
 
     <!-- run -->
     
 	<target name="runAll" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" suitename="singletest">	
-            <xmlfileset dir="${ws.home}/config" includes="All.xml"/>			
+         <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="All.xml"/>	
+			<sysproperty key="org.uncommons.reportng.title" value="My Test Report"/>				
         </testng>        
     </target>
 	
 	<target name="login" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" suitename="singletest">	
-            <xmlfileset dir="${ws.home}/config" includes="login.xml"/>			
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="login.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<target name="CasesTab" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"				
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">	
+            <xmlfileset dir="${ws.home}/config" includes="CasesTab.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>				
         </testng>        
     </target>
 	
