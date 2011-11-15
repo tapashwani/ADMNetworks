@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" parallel="classes" name="Login" annotations="JDK">
+    <test name="Login" junit="false">
+	<classes>
+           <class name="com.ADMNetworks.Tests.Login">
+            	<methods>
+            		<include name="testLogin" />
+            	</methods>
+            </class>			
+	</classes>
+    </test>
+</suite> 
