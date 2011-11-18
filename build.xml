@@ -103,7 +103,50 @@
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>				
         </testng>        
     </target>
-	
+	<target name="testHotelCombined" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="testHotelCombined.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<target name="CombinedLiability" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="CombinedLiability.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<target name="MotorHireAndReward" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="MotorHireAndReward.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<target name="ResidentialLandlords" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="ResidentialLandlords.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
     <!-- ****************** targets not used ****************** -->
  
 </project>
