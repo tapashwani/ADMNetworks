@@ -84,5 +84,77 @@ public class CustomMethod {
 		    int randomNumber =  (int)(fraction + aStart);    
 		    return randomNumber;
 	 }
+	 
+	 public void waitForElementPresent(WebDriver driver, String locator, int timeout) throws Exception {
+		  for (int second = 0; second<200; second++) {
+		       if (second >= timeout)
+		           //throw new SeleniumException("Timout finding: " + locator);
+		           try {
+		                if (this.isElementPresent(driver, By.cssSelector(locator)))
+		                    break;
+			            }
+			            catch (Exception ex) {}
+			            Thread.sleep(1000); 
+			       } 
+			 
+			}
+	public void waitForElementPresentid(WebDriver driver, String locator, int timeout) throws Exception {
+		  for (int second = 0; second<200; second++) {
+		       if (second >= timeout)
+		           try {
+		                if (this.isElementPresent(driver, By.id(locator)))
+		                    break;
+			            }
+			            catch (Exception ex) {}
+			       } 
+			 
+			}
+	public void waitForElementPresentlink(WebDriver driver, String locator, int timeout) throws Exception {
+		  for (int second = 0; second<200; second++) {
+		       if (second >= timeout)
+		           try {
+		                if (this.isElementPresent(driver, By.linkText(locator)))
+		                    break;
+			            }
+			            catch (Exception ex) {}
+			       } 
+			 
+			}
+	public void waitForElementPresentname(WebDriver driver, String locator, int timeout) throws Exception {
+		  for (int second = 0; second<200; second++) {
+		       if (second >= timeout)
+		           try {
+		                if (this.isElementPresent(driver, By.name(locator)))
+		                    break;
+			            }
+			            catch (Exception ex) {}
+			       } 
+			 
+			}
 	
+	public Object[][] GetDataprovider()	  {
+	    ReadProperty readp = new ReadProperty();
+	    String RunMod= readp.readApplicationFile("RunMod");   
+	    String baseUrl1, baseUrl2;
+	    baseUrl1 = readp.readApplicationFile("URL");
+	    baseUrl2 = readp.readApplicationFile("URLLabs");
+	   
+		   if(RunMod.equals("0")){     
+			    Object[][] retObjArr={{baseUrl1}};
+			    return(retObjArr);
+			   }
+		   if(RunMod.equals("1")){    
+			    Object[][] retObjArr={{baseUrl2}};
+			    return(retObjArr);
+			   }
+		   if(RunMod.equals("2")){   
+			    Object[][] retObjArr={{baseUrl1},{baseUrl2}};
+			    return(retObjArr);
+			   }
+		   else{
+			    System.out.println("Please set value RunMod value in application.properties file");
+			    return(null);
+			   }
+	
+     }
 }

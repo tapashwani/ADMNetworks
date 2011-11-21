@@ -13,25 +13,21 @@ import com.thoughtworks.selenium.Selenium;
 public class Login {
 	
 	private WebDriver driver;
-	private String baseUrl1;
-	private String baseUrl2;
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
 	
 	@DataProvider(name = "DP1")
-    public Object[][] createData() {
-	baseUrl1 = readp.readApplicationFile("URL");
-	baseUrl2 = readp.readApplicationFile("URLLabs");
-        Object[][] retObjArr={{baseUrl1},
-                            {baseUrl2}};
-        return(retObjArr);
-    }
+	    public Object[][] createData() {
+		  Object[][] retObjArr= custom.GetDataprovider();
+		  return (retObjArr);
+    	}
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = custom.CreateObject(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	}
+		}
+	
 	@AfterMethod
 	public void tearDown() throws Exception {
 		driver.quit();	
