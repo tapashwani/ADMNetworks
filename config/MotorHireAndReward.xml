@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="5" parallel="classes" name="MotorHireAndReward" annotations="JDK">
+<suite thread-count="5" parallel="classes" name="ADM Networks" annotations="JDK">
     <test name="MotorHireAndReward" junit="false">
 	<classes>
            <class name="com.ADMNetworks.Tests.MotorHireAndReward">

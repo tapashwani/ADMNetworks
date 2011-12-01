@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite hostname="tapashwani" name="com.ADMNetworks.Tests.Login" tests="1" failures="0" timestamp="3 Nov 2011 12:11:44 GMT" time="49.712" errors="0">
-  <testcase name="testLogin" time="49.69" classname="com.ADMNetworks.Tests.Login"/>
-</testsuite>

@@ -147,6 +147,28 @@
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
+	<target name="RestaurantCombined" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="RestaurantCombined.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<target name="UnoccupiedPropertyOwners" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="UnoccupiedPropertyOwners.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
     <!-- ****************** targets not used ****************** -->
  
 </project>

@@ -1,22 +1,26 @@
 package com.ADMNetworks.Tests;
 
-//import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
-//import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import org.testng.Assert;
-import com.ADMNetworks.Utill.CustomMethod;
-import com.ADMNetworks.Utill.ReadProperty;
+import com.ADMNetworks.Utill.*;
 import com.thoughtworks.selenium.Selenium;
-//import com.thoughtworks.selenium.SeleniumException;
+
 
 public class CombinedLiability {
 	private WebDriver driver;
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
+	int Counter = 0;
+	String str11="";
+	String str12="";
+	String str21="";
+	String str22="";
+	String PolicyID1,PolicyID2;
+	WritePropertiesFile write = new WritePropertiesFile();
 	
 	@DataProvider(name = "DP1")
 	    public Object[][] createData() {
@@ -29,43 +33,40 @@ public class CombinedLiability {
 		driver = custom.CreateObject(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
+	
+	@AfterSuite
+	public void tearDown() throws Exception {
+		driver.quit();			
+	}
 	@Test(dataProvider = "DP1")
 	public void testCombinedLiability(String Url) throws Exception {
 		
-			//baseUrl = readp.readApplicationFile("URL");
 			driver.get(Url);		
-			Selenium selenium = new WebDriverBackedSelenium(driver, Url);			
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("AboutUs")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("GetaQuote")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ContactUs")));
+			Selenium selenium = new WebDriverBackedSelenium(driver, Url);	
+			if (Counter==0){
+				write.SetProperty1("CombinedLiability");
+			}
 			driver.findElement(By.id("GetaQuote")).click();
+			custom.waitForElementPresentlink(driver, "Combined Liability", 21);
 			driver.findElement(By.linkText("Combined Liability")).click();
-			Thread.sleep(3000);
-			Assert.assertTrue(selenium.isTextPresent("Agent details"));
+			Thread.sleep(7000);
 			driver.findElement(By.linkText("click here to sign in")).click();
 			custom.waitForElementPresentid(driver, "Username",61);
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("I forgot my username or password")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Return to My Homepage")));
 			custom.Login(driver, selenium, "Admin");
 			custom.waitForElementPresentid(driver, "ctl00_MainContent_btnNext", 61);
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_MainContent_btnNext")));
-			Assert.assertTrue(custom.isElementPresent(driver,By.id("ctl00_MainContent_lnkBack")));
 			driver.findElement(By.id("ctl00_MainContent_btnNext")).click();
-			Assert.assertTrue(custom.isElementPresent(driver,By.name("QuestionPage_Back")));
-			Assert.assertTrue(custom.isElementPresent(driver,By.name("QuestionPage_Next")));
-			Assert.assertTrue(custom.isElementPresent(driver,By.name("SubmitQuote")));
-			Assert.assertTrue(selenium.isTextPresent("Statement of Fact"));
+			custom.waitForElementPresentname(driver, "QuestionPage_Back", 51);
 			driver.findElement(By.cssSelector("#stub_page_Page1 > div.inner")).click();
-			Assert.assertTrue(selenium.isTextPresent("About You"));
+			Thread.sleep(3000);
 			driver.findElement(By.id("FullTradingName")).clear();
 			driver.findElement(By.id("FullTradingName")).sendKeys("360logica");
-			selenium.select("id=InceptDate_ddlDate_Third", "label=2012");
 			selenium.select("id=InceptDate_ddlDate_Third", "label=2011");
 			selenium.select("id=Company__Type", "label=Limited Company");
 			driver.findElement(By.id("Trading__Duration")).clear();
 			driver.findElement(By.id("Trading__Duration")).sendKeys("2010");
 			selenium.select("id=MainProfession", "label=Computer Engineers");
 			driver.findElement(By.cssSelector("#stub_page_Page2 > div.inner")).click();
+			Thread.sleep(3000);
 			driver.findElement(By.id("UK__Turnover")).clear();
 			driver.findElement(By.id("UK__Turnover")).sendKeys("50000");
 			driver.findElement(By.id("Sub__Contractor__Value")).clear();
@@ -73,6 +74,7 @@ public class CombinedLiability {
 			selenium.select("id=Overseas__Contracts", "label=Yes");
 			selenium.select("id=ExportOverseas", "label=Yes");
 			driver.findElement(By.cssSelector("#stub_page_Page3 > div.inner")).click();
+			Thread.sleep(3000);
 			driver.findElement(By.id("Wages__Clerical__Employees")).clear();
 			driver.findElement(By.id("Wages__Clerical__Employees")).sendKeys("12");
 			driver.findElement(By.id("Wages__Manual__Employees")).clear();
@@ -82,6 +84,7 @@ public class CombinedLiability {
 			driver.findElement(By.id("Wages__Warehouseman")).clear();
 			driver.findElement(By.id("Wages__Warehouseman")).sendKeys("12");
 			driver.findElement(By.cssSelector("#stub_page_Page5 > div.inner")).click();
+			Thread.sleep(3000);
 			driver.findElement(By.id("Claims_No")).click();
 			driver.findElement(By.id("Hot__Works__Away_No")).click();
 			driver.findElement(By.id("Radioactive__Substances_No")).click();
@@ -89,14 +92,14 @@ public class CombinedLiability {
 			driver.findElement(By.id("High__Risk__Products_No")).click();
 			driver.findElement(By.id("5Employees_No")).click();
 			selenium.click("document.forms[0].elements[208]");
-			selenium.waitForPageToLoad("30000");			
-			Assert.assertTrue(selenium.isTextPresent("Your quotation reference is"));
+			selenium.waitForPageToLoad("30000");
+			Thread.sleep(3000);
+			custom.waitForElementPresentid(driver, "ctl00_MainContent_lnkBack", 51);
 			String CaseID = driver.findElement(By.xpath("//div[@id='ctl00_MainContent_SummaryDefault']/h3/span")).getText();
 			System.out.println(CaseID);
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_MainContent_lnkBack")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_MainContent_btnSave")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_MainContent_btnProceed")));
 			driver.findElement(By.id("ctl00_MainContent_btnSave")).click();
+			Thread.sleep(2000);
+			custom.waitForElementPresentid(driver, "ctl00_MainContent_Firstname", 51);
 			selenium.select("id=ctl00_MainContent_UserTitle", "label=Dr");
 			driver.findElement(By.id("ctl00_MainContent_Firstname")).clear();
 			driver.findElement(By.id("ctl00_MainContent_Firstname")).sendKeys("Test");
@@ -113,96 +116,54 @@ public class CombinedLiability {
 			driver.findElement(By.id("ctl00_MainContent_Address_txtCounty")).clear();
 			driver.findElement(By.id("ctl00_MainContent_Address_txtCounty")).sendKeys("USA");
 			driver.findElement(By.id("Next")).click();
-			Assert.assertTrue(selenium.isTextPresent("Viewing Summary for " + CaseID));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Endorsements")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Matrix")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Documents")));
-			/*for (int second = 0;; second++) {
-				if (second >= 60) fail("timeout");
-				try { if (selenium.isTextPresent("Claims")) break; } catch (Exception e) {}
-				Thread.sleep(1000);
-			}*/
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Notes")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Money")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Activity")));
-			Assert.assertTrue(selenium.isTextPresent("History"));
-			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("span.label")));
-			Assert.assertTrue(selenium.isTextPresent("User Saved"));
+			Thread.sleep(2000);
+			custom.waitForElementPresentlink(driver, "Endorsements", 51);
 			driver.findElement(By.id("display_status")).click();
 			selenium.select("id=change_status", "label=Quotation");
-			// ERROR: Caught exception [ERROR: Unsupported command [isTextPresent]]
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Change status only")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("#StatusChangeWarning > div > img")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Cancel")));
+			Thread.sleep(4000);
 			driver.findElement(By.linkText("Change status only")).click();
-			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Re-Quote\"]")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"ACME\"]")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"switch\"]")));
 			driver.findElement(By.linkText("Endorsements")).click();
 			Thread.sleep(3000);
-			Assert.assertTrue(selenium.isTextPresent("Conditions"));
 			driver.findElement(By.linkText("Add a new Conditions question")).click();
-			custom.waitForElementPresent(driver, "Question.Text", 60);
-			Assert.assertTrue(selenium.isTextPresent("Adding a Conditions item"));
+			custom.waitForElementPresentid(driver, "Question.Text", 61);		
 			driver.findElement(By.id("Question.Text")).clear();
-			driver.findElement(By.id("Question.Text")).sendKeys("Test Condition");
+			driver.findElement(By.id("Question.Text")).sendKeys("New Condition");
 			driver.findElement(By.id("Question.Save")).click();
 			Thread.sleep(3000);
 			driver.findElement(By.linkText("Add a new Memorandum question")).click();
 			driver.findElement(By.id("Question.Text")).clear();
-			driver.findElement(By.id("Question.Text")).sendKeys("Test Memo");
-			driver.findElement(By.id("Question.DefaultValue")).clear();
-			driver.findElement(By.id("Question.DefaultValue")).sendKeys("testing Memorandum.");
+			driver.findElement(By.id("Question.Text")).sendKeys("New Momo");
+			custom.waitForElementPresentid(driver, "Question.DefaultValue", 61);
+			driver.findElement(By.id("Question.DefaultValue")).clear();		
+			driver.findElement(By.id("Question.DefaultValue")).sendKeys("Testing");
 			driver.findElement(By.id("Question.Save")).click();
 			Thread.sleep(3000);
-			driver.findElement(By.linkText("Matrix")).click();			
-			custom.waitForElementPresent(driver, "TotalPremiumNet_result_span", 60);
-			//Assert.assertTrue(selenium.isTextPresent("Main"));
-			//String Totalpremium = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
-			//String TP = driver.findElement(By.id("TotalPremium_result_span")).getText();
-			driver.findElement(By.linkText("Documents")).click();
-			driver.findElement(By.cssSelector("img.hand")).click();
-			selenium.select("name=NewDocumentType", "label=Certificate - Combined Liability - Aviva");
-			driver.findElement(By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_btnSave")).click();
-			driver.findElement(By.xpath("//div[@id='content']/table/tbody/tr/td/div[2]/div/div[9]/div/a")).click();
+			driver.findElement(By.linkText("Matrix")).click();	
 			Thread.sleep(3000);
-			Assert.assertTrue(selenium.isTextPresent("Claims for this case"));
-			Assert.assertTrue(selenium.isTextPresent("Excesses for this case"));
-			/*driver.findElement(By.linkText("Notes")).click();
-			driver.findElement(By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_Img1")).click();
-			this.waitForElementPresent("body.cke_show_borders", 60);
-			for (int second = 0;; second++) {
-				if (second >= 60) fail("timeout");
-				try { if (custom.isElementPresent(driver, By.cssSelector("body.cke_show_borders"))) break; } catch (Exception e) {}
-				Thread.sleep(1000);
+			String Totalpremium = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
+			String TP = driver.findElement(By.id("TotalPremium_result_span")).getText();
+			if (Counter == 0)
+			{
+				str11 = Totalpremium;
+				str12 = TP;
+				PolicyID1=CaseID;
+				write.WritePropertyFile("CombinedLiability", "PolicyID1", PolicyID1);
+				write.WritePropertyFile("CombinedLiability", "TotalGrossPremium1", str11);
+				write.WritePropertyFile("CombinedLiability", "TotalNetPremium1", str12);
 			}
-
-			Assert.assertTrue(selenium.isTextPresent("Add a note"));
-			Thread.sleep(3000);
-			//Assert.assertTrue(custom.isElementPresent(driver, By.id("NewNote")));
-			//Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Cancel")));
-			driver.findElement(By.cssSelector("img[alt=\"close\"]")).click();*/
-			driver.findElement(By.linkText("Money")).click();
-			Thread.sleep(5000);
-			//Assert.assertTrue(selenium.isTextPresent("Schedule"));
-			//Assert.assertTrue(selenium.isTextPresent("Transactions"));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Take Card Payment")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Record Cheque")));
-			Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Record Bank Payment")));
-			driver.findElement(By.linkText("Take Card Payment")).click();
-			custom.waitForElementPresent(driver, "img[alt=\"close\"]", 60);
-			driver.findElement(By.cssSelector("img[alt=\"close\"]")).click();
-			driver.findElement(By.linkText("Record Cheque")).click();
-			custom.waitForElementPresent(driver, "img[alt=\"close\"]", 60);
-			driver.findElement(By.cssSelector("img[alt=\"close\"]")).click();
-			driver.findElement(By.linkText("Record Bank Payment")).click();
-			custom.waitForElementPresent(driver, "img[alt=\"close\"]", 60);
-			driver.findElement(By.cssSelector("img[alt=\"close\"]")).click();
-			driver.findElement(By.linkText("Activity")).click();
-			driver.findElement(By.linkText("Logout")).click();
+			if (Counter == 1)
+			{
+				str21=Totalpremium;
+				str22=TP;
+				PolicyID2=CaseID;				
+				write.WritePropertyFile("CombinedLiability", "PolicyID2", PolicyID2);
+				write.WritePropertyFile("CombinedLiability", "TotalGrossPremium2", str21);
+				write.WritePropertyFile("CombinedLiability", "TotalNetPremium2", str22);
+				Assert.assertEquals(str21, str11);
+				Assert.assertEquals(str22, str12);
+				
+			}
+			Counter=Counter+1;
 		}
-	@AfterSuite
-	public void tearDown() throws Exception {
-		driver.quit();			
-	}
+	
 }

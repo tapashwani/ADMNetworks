@@ -2,12 +2,14 @@ package com.ADMNetworks.Utill;
 
 import org.openqa.selenium.WebDriver;
 import java.io.File;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 //import org.testng.Assert;
 import com.ADMNetworks.Utill.ReadProperty;
 import com.thoughtworks.selenium.Selenium;
@@ -30,8 +32,11 @@ public class CustomMethod {
 			}
 			
 			if(driver_type.equals("ch")){
-				System.setProperty("webdriver.chrome.driver", readp.readApplicationFile("ChromeDriverPath"));
-				driver = new ChromeDriver(); 
+				    DesiredCapabilities dc = DesiredCapabilities.chrome();
+				    String[] switches = { "--ignore-certificate-errors","--disable-popup-blocking","--disable-translate"};
+				    dc.setCapability("chrome.switches", Arrays.asList(switches));    
+				    System.setProperty("webdriver.chrome.driver",readp.readApplicationFile("ChromeDriverPath") );
+				    driver = new ChromeDriver(dc); 
 			}	
 		}
 		else{

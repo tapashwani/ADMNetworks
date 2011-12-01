@@ -15,6 +15,9 @@ public class Login {
 	private WebDriver driver;
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
+	String str = "";
+	String str1 = "null";
+	int Counter = 0;
 	
 	@DataProvider(name = "DP1")
 	    public Object[][] createData() {
@@ -36,7 +39,19 @@ public class Login {
 
 	@Test (dataProvider = "DP1")
 	public void testLogin(String Url) throws Exception {		
-			driver.get(Url);		
+			driver.get(Url);	
+			if (Counter == 0)
+			{
+				System.out.println("Using test Url 1");
+			}
+			if (Counter == 1)
+			{
+				System.out.println("Using test Url 2");
+			}			
+			String Getstr1=readp.readDatafrom("CombinedLiability", "PolicyID1");
+			System.out.println(Getstr1);
+			String Getstr2=readp.readDatafrom("MotorHireReward", "PolicyID1");
+			System.out.println(Getstr2);
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
 			custom.Login(driver,selenium, "Admin");		
@@ -54,7 +69,6 @@ public class Login {
 			Assert.assertTrue(custom.isElementPresent(driver, By.id("Reports")));
 			Assert.assertTrue(custom.isElementPresent(driver, By.id("UsefulDocuments")));
 			Assert.assertTrue(selenium.isTextPresent("Search for Cases"));
-			// ERROR: Caught exception [ERROR: Unsupported command [isTextPresent]]
 			driver.findElement(By.id("Clients")).click();
 			Assert.assertTrue(selenium.isTextPresent("List Clients"));
 			Assert.assertTrue(selenium.isTextPresent("Search for clients"));
@@ -91,6 +105,7 @@ public class Login {
 			Assert.assertTrue(selenium.isTextPresent("Run detailed reports"));
 			Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"New Report\"]")));
 			driver.findElement(By.id("UsefulDocuments")).click();
+			Counter = Counter+1;
 		}
 	
 }

@@ -2,6 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="methods">
 	<suite-files>
-	    <suite-file path="CreateTitle.xml"></suite-file>	   	
+			<suite-file path="login.xml"></suite-file>	
+			<suite-file path="CasesTab.xml"></suite-file>
+			<suite-file path="CombinedLiability.xml"></suite-file>
+			<suite-file path="HotelCombined.xml"></suite-file>
+			<suite-file path="MotorHireAndReward.xml"></suite-file>
+			<suite-file path="ResidentialLandlords.xml"></suite-file>
+			<suite-file path="RestaurantCombined.xml"></suite-file>
+			<suite-file path="UnoccupiedPropertyOwners.xml"></suite-file>
 	</suite-files>
 </suite> 
