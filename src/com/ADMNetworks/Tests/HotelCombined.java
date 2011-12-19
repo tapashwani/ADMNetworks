@@ -5,25 +5,35 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
-//import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import com.ADMNetworks.Utill.CustomMethod;
 import com.ADMNetworks.Utill.ReadProperty;
+import com.ADMNetworks.Utill.WritePropertiesFile;
 import com.thoughtworks.selenium.Selenium;
-//import com.thoughtworks.selenium.SeleniumException;
 
 public class HotelCombined {
 	
 	private WebDriver driver;
+	
+	//Create object
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
+	WritePropertiesFile write = new WritePropertiesFile();
+	
+	// Variable defined
+	int Counter = 0;
+	String str11="";
+	String str12="";
+	String str21="";
+	String str22="";
+	String PolicyID1,PolicyID2;	
 	
 	@DataProvider(name = "DP1")
 	    public Object[][] createData() {
 		  Object[][] retObjArr= custom.GetDataprovider();
 		  return (retObjArr);
-    }
+    	}
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
@@ -35,33 +45,37 @@ public class HotelCombined {
 		driver.quit();			
 	}	
 	@Test (dataProvider = "DP1")
-	public void testHotelCombined(String Url) throws Exception {
+	public void testHotelCombined(String Url) throws Exception {		
+		HotelCombinedtest(driver,Url, Counter);
+		Counter=Counter+1;
+	}
+	public void HotelCombinedtest(WebDriver driver,String Url, int Counter) throws Exception{		
 		
-		//driver.get("http://acme.schemeserve.com");
-		driver.get(Url);		
+		driver.get(Url);	
 		Selenium selenium = new WebDriverBackedSelenium(driver, Url);
+		
+		//Create new properties file or reset the value if file already exist 
+		if (Counter==0){			
+			write.CreateNewFiles("HotelCombined");
+			write.WritePropertyFile("HotelCombined", "PolicyID1", "NA");
+			write.WritePropertyFile("HotelCombined", "PolicyID2", "NA");
+			write.WritePropertyFile("HotelCombined", "TotalNP1", "NA");
+			write.WritePropertyFile("HotelCombined", "TotalGP1", "NA");
+			write.WritePropertyFile("HotelCombined", "TotalNP2", "NA");
+			write.WritePropertyFile("HotelCombined", "TotalGP2", "NA");
+		}		
+		
+		//Click on Quotes tab and fill the answer.
 		driver.findElement(By.id("GetaQuote")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.linkText("Hotel Combined")).click();
 		Thread.sleep(3000);
-		//Assert.assertTrue(selenium.isTextPresent("Get a quick quote"));
-		//Assert.assertTrue(selenium.isTextPresent("Hotel Combined"));
-		//Assert.assertTrue(selenium.isTextPresent("Agent details"));
 		driver.findElement(By.linkText("click here to sign in")).click();
 		custom.waitForElementPresentid(driver, "Username",61);
-		//Assert.assertTrue(custom.isElementPresent(driver, By.linkText("I forgot my username or password")));
-		//Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Return to My Homepage")));
 		custom.Login(driver, selenium, "Admin");
 		custom.waitForElementPresentid(driver, "ctl00_MainContent_btnNext", 61);
-		//Assert.assertTrue(custom.isElementPresent(driver, By.name("SignOut")));
 		driver.findElement(By.id("ctl00_MainContent_btnNext")).click();
 		Thread.sleep(4000);
-		/*custom.waitForElementPresent(driver, "#stub_page_Page5 > div.inner", 62);
-		Assert.assertTrue(selenium.isTextPresent("Quotation Request"));
-		Assert.assertTrue(custom.isElementPresent(driver, By.name("QuestionPage_Back")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.name("QuestionPage_Next")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.name("SubmitQuote")));
-		Assert.assertTrue(selenium.isTextPresent("Declarations"));*/
 		driver.findElement(By.cssSelector("#stub_page_Page5 > div.inner")).click();
 		driver.findElement(By.id("S1P1RegNameTB")).clear();
 		driver.findElement(By.id("S1P1RegNameTB")).sendKeys("Testing details");
@@ -70,59 +84,42 @@ public class HotelCombined {
 		selenium.select("id=S1P3BusDescText", "label=Guesthouse");
 		selenium.select("id=S1P1YrsBusOprtd", "label=1 to 3 years");
 		driver.findElement(By.id("S1P3OpenYrRound_Yes")).click();
-		driver.findElement(By.id("S1P3RoomNo")).clear();
 		driver.findElement(By.id("S1P3RoomNo")).sendKeys("5");
 		driver.findElement(By.id("S1P3FinInterestYN_Yes")).click();
 		driver.findElement(By.id("S1P3FinInterestYN_No")).click();
 		driver.findElement(By.cssSelector("#stub_page_Page1 > div.inner")).click();
 		Thread.sleep(3000);
-		//Assert.assertTrue(selenium.isTextPresent("Material Damage"));
-		driver.findElement(By.id("S2P1BuildingSI")).clear();
 		driver.findElement(By.id("S2P1BuildingSI")).sendKeys("100");
-		driver.findElement(By.id("S2P1TrContentsSI")).clear();
 		driver.findElement(By.id("S2P1TrContentsSI")).sendKeys("50");
-		driver.findElement(By.id("S2P1StockInTradeSI")).clear();
 		driver.findElement(By.id("S2P1StockInTradeSI")).sendKeys("500");
-		driver.findElement(By.id("S2P1BusEqptNonStdLimit")).clear();
 		driver.findElement(By.id("S2P1BusEqptNonStdLimit")).sendKeys("200");
-		driver.findElement(By.id("S2P1ToWiSpNonStdLimit")).clear();
 		driver.findElement(By.id("S2P1ToWiSpNonStdLimit")).sendKeys("100");
-		driver.findElement(By.id("S2P1DoSNonStdLimit")).clear();
 		driver.findElement(By.id("S2P1DoSNonStdLimit")).sendKeys("26");
-		driver.findElement(By.id("S2P1ArtWorksNonStdLimit")).clear();
 		driver.findElement(By.id("S2P1ArtWorksNonStdLimit")).sendKeys("51");
-		driver.findElement(By.id("S2P1HouseholdNonStdLimit")).clear();
 		driver.findElement(By.id("S2P1HouseholdNonStdLimit")).sendKeys("21");
 		driver.findElement(By.cssSelector("#stub_page_Page13 > div.inner")).click();
 		Thread.sleep(2000);
-		//driver.findElement(By.id("S2P2GrossRevSI")).clear();
 		driver.findElement(By.id("S2P2GrossRevSI")).sendKeys("200");
 		selenium.select("id=S2P2GrRevIndPer", "label=12 Months");
 		driver.findElement(By.cssSelector("#stub_page_Page14 > div.inner")).click();
 		Thread.sleep(2000);
-		//driver.findElement(By.id("S2P3AdminPayroll")).clear();
 		driver.findElement(By.id("S2P3AdminPayroll")).sendKeys("100");
-		driver.findElement(By.id("S2P3GrossWageRoll")).clear();
 		driver.findElement(By.id("S2P3GrossWageRoll")).sendKeys("100");
-		driver.findElement(By.id("S2P3AnnTurnover")).clear();
 		driver.findElement(By.id("S2P3AnnTurnover")).sendKeys("5000");
 		driver.findElement(By.cssSelector("#stub_page_Page2 > div.inner")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.id("S2P4Claims3YrsYN_No")).click();
 		driver.findElement(By.id("SP2P4FloodHistYN_Yes")).click();
-		driver.findElement(By.id("S2P4FloodHistTxtBox")).clear();
 		driver.findElement(By.id("S2P4FloodHistTxtBox")).sendKeys("testing date");
 		driver.findElement(By.id("S2P4SubsHistYN_No")).click();
 		driver.findElement(By.cssSelector("#stub_page_Page4 > div.inner")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.id("S1P3BldgDate")).clear();
 		driver.findElement(By.id("S1P3BldgDate")).sendKeys("2009");
 		selenium.select("id=S3P1StoreyNo", "label=Four");
 		driver.findElement(By.id("S3P1PremListedYN_No")).click();
 		driver.findElement(By.id("S3P1WallsConstYN_Yes")).click();
 		driver.findElement(By.id("S3P1RoofsConstYN_Yes")).click();
 		driver.findElement(By.id("S3P1FlatRoofYN_Yes")).click();
-		driver.findElement(By.id("S3P1FlatRoofPerC")).clear();
 		driver.findElement(By.id("S3P1FlatRoofPerC")).sendKeys("30");
 		driver.findElement(By.id("S3P1WoodFloorYN_No")).click();
 		driver.findElement(By.cssSelector("#stub_page_Page10 > div.inner")).click();
@@ -133,10 +130,7 @@ public class HotelCombined {
 		selenium.select("id=S3P2FAlarmSignal", "label=Local Bells and remote signalling to a monitoring Central Station");
 		selenium.select("id=S3P2FAlarmTestFreq", "label=Monthly");
 		driver.findElement(By.id("S3P2HandSDetectYN_No")).click();
-		driver.findElement(By.id("S3P2HandSDetectTxt")).clear();
 		driver.findElement(By.id("S3P2HandSDetectTxt")).sendKeys("Smoke detector not placed in the bedroom");
-		driver.findElement(By.id("S3P2HandSDetectTxt")).clear();
-		driver.findElement(By.id("S3P2HandSDetectTxt")).sendKeys("Smoke Detector Not Placed in the Bedroom.");
 		Thread.sleep(4000);
 		selenium.select("id=S3P2FireStationDist", "label=Under 5 Miles");
 		selenium.select("id=S3P2FStationType", "label=Retained");
@@ -155,7 +149,6 @@ public class HotelCombined {
 		Thread.sleep(4000);
 		driver.findElement(By.id("S4P1SpHrsLicYN_No")).click();
 		driver.findElement(By.id("S4P1EntertainYN_Yes")).click();
-		driver.findElement(By.id("S4P1EntertainDetail")).clear();
 		driver.findElement(By.id("S4P1EntertainDetail")).sendKeys("Fun events");
 		driver.findElement(By.id("S4P1EntertainNonResYN_No")).click();
 		driver.findElement(By.cssSelector("#stub_page_Page7 > div.inner")).click();
@@ -171,98 +164,61 @@ public class HotelCombined {
 		driver.findElement(By.id("S4P3PestConYN_Yes")).click();
 		driver.findElement(By.cssSelector("#stub_page_Page3 > div.inner")).click();
 		Thread.sleep(4000);
-		driver.findElement(By.id("AdditionalNotes")).clear();
 		driver.findElement(By.id("AdditionalNotes")).sendKeys("No other specific Notes here");
 		selenium.click("document.forms[0].elements[362]");
 		selenium.waitForPageToLoad("30000");
-		//custom.waitForElementPresentid(driver, "ctl00_MainContent_Firstname", 61);
-		//Assert.assertTrue(selenium.isTextPresent("Client details"));
 		selenium.select("id=ctl00_MainContent_UserTitle", "label=Capt");
-		driver.findElement(By.id("ctl00_MainContent_Firstname")).clear();
 		driver.findElement(By.id("ctl00_MainContent_Firstname")).sendKeys("Testing");
-		driver.findElement(By.id("ctl00_MainContent_Surname")).clear();
 		driver.findElement(By.id("ctl00_MainContent_Surname")).sendKeys("Hotel");
-		driver.findElement(By.id("ctl00_MainContent_OrganisationName")).clear();
 		driver.findElement(By.id("ctl00_MainContent_OrganisationName")).sendKeys("360Logica");
-		driver.findElement(By.id("ctl00_MainContent_Address_txtAddress1")).clear();
 		driver.findElement(By.id("ctl00_MainContent_Address_txtAddress1")).sendKeys("test 1/2");
-		driver.findElement(By.id("ctl00_MainContent_Address_txtTown")).clear();
 		driver.findElement(By.id("ctl00_MainContent_Address_txtTown")).sendKeys("Foster City");
-		driver.findElement(By.id("ctl00_MainContent_Address_txtCounty")).clear();
 		driver.findElement(By.id("ctl00_MainContent_Address_txtCounty")).sendKeys("USA");
-		driver.findElement(By.id("ctl00_MainContent_Address_txtPostcode")).clear();
-		driver.findElement(By.id("ctl00_MainContent_Address_txtPostcode")).sendKeys("sg4");
-		driver.findElement(By.id("ctl00_MainContent_Address_txtPostcode")).clear();
-		driver.findElement(By.id("ctl00_MainContent_Address_txtPostcode")).sendKeys("SG2 8bj");
+		driver.findElement(By.id("ctl00_MainContent_Address_txtPostcode")).sendKeys("SG2 8BJ");
 		driver.findElement(By.id("Next")).click();
 		Thread.sleep(4000);
 		custom.waitForElementPresent(driver, "span.policy_reference", 62);
-		//Assert.assertTrue(selenium.isTextPresent("Your quote has been referred"));
-		//Assert.assertTrue(selenium.isTextPresent("If you have any questions please contact us."));
 		String CaseID = driver.findElement(By.cssSelector("span.policy_reference")).getText();
 		Assert.assertTrue(selenium.isTextPresent("exact:IMPORTANT: Your referral reference is " + CaseID));
 		System.out.println(CaseID);
-		custom.waitForElementPresentid(driver, "ctl00_MainContent_btnViewAccount", 51);
 		driver.findElement(By.id("ctl00_MainContent_btnViewAccount")).click();
-		Thread.sleep(2000);
-		custom.waitForElementPresent(driver, "img[alt=\"Re-Quote\"]", 51);
-		/*Assert.assertTrue(selenium.isTextPresent("Viewing Summary for " + CaseID));
-		Assert.assertTrue(selenium.isTextPresent("First Premium"));		
-		Assert.assertTrue(custom.isElementPresent(driver, By.cssSelector("img[alt=\"Re-Quote\"]")));*/
-		driver.findElement(By.linkText("Endorsements")).click();
-		custom.waitForElementPresentlink(driver, "Add a new Conditions question", 51);
-		driver.findElement(By.linkText("Add a new Conditions question")).click();
-		custom.waitForElementPresentid(driver, "Question.Text", 61);
-		//Assert.assertTrue(selenium.isTextPresent("Adding a Conditions item"));
-		driver.findElement(By.id("Question.Text")).clear();
-		driver.findElement(By.id("Question.Text")).sendKeys("New Condition");
-		driver.findElement(By.id("Question.Save")).click();
-		custom.waitForElementPresentlink(driver, "Add a new Memorandum question", 51);
-		driver.findElement(By.linkText("Add a new Memorandum question")).click();
-		driver.findElement(By.id("Question.Text")).clear();
-		driver.findElement(By.id("Question.Text")).sendKeys("New Momo");
-		custom.waitForElementPresentid(driver, "Question.DefaultValue", 61);
-		driver.findElement(By.id("Question.DefaultValue")).clear();		
-		driver.findElement(By.id("Question.DefaultValue")).sendKeys("Testing");
-		//Assert.assertTrue(selenium.isTextPresent("Adding a Memorandum item"));
-		driver.findElement(By.id("Question.Save")).click();
-		Thread.sleep(3000);
+		Thread.sleep(4000);
+		
+		//Click on Matrix tab, store values in variables and HotelCombined.properties file
 		driver.findElement(By.linkText("Matrix")).click();
-		Thread.sleep(3000);		
-		driver.findElement(By.linkText("Documents")).click();
-		custom.waitForElementPresent(driver, "img.hand", 51);
-		driver.findElement(By.cssSelector("img.hand")).click();
-		custom.waitForElementPresentid(driver, "add_file_link", 61);
-		//Assert.assertTrue(selenium.isTextPresent("Create a new document"));
-		//Assert.assertTrue(custom.isElementPresent(driver, By.id("add_file_link")));
-		Thread.sleep(2000);
-		selenium.select("name=NewDocumentType", "label=Auto Renewal Notice - Hotel Combined");
-		driver.findElement(By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_btnSave")).click();
-		driver.findElement(By.xpath("//div[@id='content']/table/tbody/tr/td/div[2]/div/div[9]/div/a")).click();
-		driver.findElement(By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_imgCreateNew")).click();
-		Thread.sleep(3000);
-		//Assert.assertTrue(selenium.isTextPresent("Create a new claim for Policy " + CaseID));
-		//Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_imgBack")));
-		driver.findElement(By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_imgBack")).click();
-		driver.findElement(By.linkText("Notes")).click();
-		custom.waitForElementPresentid(driver, "ctl00_ctl00_MainContent_Grey_PolicyContent_Img1", 61);
-		//Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_Img1")));
-		driver.findElement(By.linkText("Money")).click();
-		custom.waitForElementPresentid(driver, "ctl00_ctl00_MainContent_Grey_PolicyContent_ExportCSVLink", 61);
-		/*Assert.assertTrue(selenium.isTextPresent("Transactions"));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Take Card Payment")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Record Cheque")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Record Bank Payment")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_ctl00_MainContent_Grey_PolicyContent_ExportCSVLink")));*/
-		driver.findElement(By.linkText("Activity")).click();
-		Thread.sleep(2000);
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("My Homepage")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.id("ctl00_ctl00_navtop_miniBar_A1")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("My Profile")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("My Company")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("Logout")));
-		Assert.assertTrue(custom.isElementPresent(driver, By.linkText("HELP GUIDE")));
+		Thread.sleep(3000);	
+		String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
+		Totalpremium = Totalpremium.replace( '\u00A3', '*' );
+		String TP = selenium.getText("id=TotalPremiumNet_result_span");
+		TP = TP.replace( '\u00A3', '*' );
+		
+		// Execution occur when script run 1st time.
+		if (Counter == 0)
+		{	
+			str11 = Totalpremium;
+			str12 = TP;
+			PolicyID1=CaseID;
+			write.WritePropertyFile("HotelCombined", "PolicyID1", PolicyID1);
+			write.WritePropertyFile("HotelCombined", "TotalGP1", str11);
+			write.WritePropertyFile("HotelCombined", "TotalNP1", str12);
+		}
+		// Execution occur when script run 2nd time.
+		if (Counter == 1)
+		{
+			str21=Totalpremium;
+			str22=TP;
+			PolicyID2=CaseID;							
+			write.WritePropertyFile("HotelCombined", "PolicyID2", PolicyID2);
+			write.WritePropertyFile("HotelCombined", "TotalGP2", str21);
+			write.WritePropertyFile("HotelCombined", "TotalNP2", str22);
+			
+			//Compare the stored value from the property file.
+			Assert.assertEquals(str21, readp.readDatafrom("HotelCombined", "TotalGP1"));
+			Assert.assertEquals(str22, readp.readDatafrom("HotelCombined", "TotalNP1"));			
+		}
+		
 		driver.findElement(By.linkText("Logout")).click();
+		
 	}
 	
 	}

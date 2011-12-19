@@ -9,18 +9,21 @@ import org.testng.Assert;
 import com.ADMNetworks.Utill.*;
 import com.thoughtworks.selenium.Selenium;
 
-
 public class CombinedLiability {
 	private WebDriver driver;
+	
+	//Create object
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
+	WritePropertiesFile write = new WritePropertiesFile();
+	
+	// Variable defined
 	int Counter = 0;
 	String str11="";
 	String str12="";
 	String str21="";
 	String str22="";
-	String PolicyID1,PolicyID2;
-	WritePropertiesFile write = new WritePropertiesFile();
+	String PolicyID1,PolicyID2;	
 	
 	@DataProvider(name = "DP1")
 	    public Object[][] createData() {
@@ -40,12 +43,26 @@ public class CombinedLiability {
 	}
 	@Test(dataProvider = "DP1")
 	public void testCombinedLiability(String Url) throws Exception {
+		CombinedLiabilitytest(driver,Url,Counter);
+		Counter=Counter+1;
+	}
+	public void CombinedLiabilitytest(WebDriver driver,String Url, int Counter) throws Exception{
 		
 			driver.get(Url);		
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);	
-			if (Counter==0){
-				write.SetProperty1("CombinedLiability");
+			
+			//Create new properties file or reset the value if file already exist 
+			if (Counter==0){				
+				write.CreateNewFiles("CombinedLiability");
+				write.WritePropertyFile("CombinedLiability", "PolicyID1", "NA");
+				write.WritePropertyFile("CombinedLiability", "PolicyID2", "NA");
+				write.WritePropertyFile("CombinedLiability", "TotalNP1", "NA");
+				write.WritePropertyFile("CombinedLiability", "TotalGP1", "NA");
+				write.WritePropertyFile("CombinedLiability", "TotalNP2", "NA");
+				write.WritePropertyFile("CombinedLiability", "TotalGP2", "NA");
 			}
+			
+			//Click on Quotes tab and fill the answer.
 			driver.findElement(By.id("GetaQuote")).click();
 			custom.waitForElementPresentlink(driver, "Combined Liability", 21);
 			driver.findElement(By.linkText("Combined Liability")).click();
@@ -75,14 +92,24 @@ public class CombinedLiability {
 			selenium.select("id=ExportOverseas", "label=Yes");
 			driver.findElement(By.cssSelector("#stub_page_Page3 > div.inner")).click();
 			Thread.sleep(3000);
-			driver.findElement(By.id("Wages__Clerical__Employees")).clear();
-			driver.findElement(By.id("Wages__Clerical__Employees")).sendKeys("12");
-			driver.findElement(By.id("Wages__Manual__Employees")).clear();
-			driver.findElement(By.id("Wages__Manual__Employees")).sendKeys("12");
-			driver.findElement(By.id("Wages__Fixed__Woodworking")).clear();
-			driver.findElement(By.id("Wages__Fixed__Woodworking")).sendKeys("12");
-			driver.findElement(By.id("Wages__Warehouseman")).clear();
-			driver.findElement(By.id("Wages__Warehouseman")).sendKeys("12");
+			
+			//Insert condition from the property file.
+			String value1=readp.readLoginFile("EL_YesNo");
+			if(value1.equals("yes")){
+				driver.findElement(By.cssSelector("#EL__YesNo > option[value=\"Yes\"]")).click();
+				driver.findElement(By.id("Wages__Clerical__Employees")).sendKeys("5000");
+				driver.findElement(By.id("Wages__Manual__Employees")).sendKeys("50000");
+				driver.findElement(By.id("Wages__Fixed__Woodworking")).sendKeys("50000");
+				driver.findElement(By.id("Wages__Warehouseman")).sendKeys("5251");
+				driver.findElement(By.id("Wages__Drivers")).sendKeys("5236");
+			}
+			else{
+				driver.findElement(By.id("Wages__Clerical__Employees")).sendKeys("12");
+				driver.findElement(By.id("Wages__Manual__Employees")).sendKeys("12");
+				driver.findElement(By.id("Wages__Fixed__Woodworking")).sendKeys("12");
+				driver.findElement(By.id("Wages__Warehouseman")).clear();
+				driver.findElement(By.id("Wages__Warehouseman")).sendKeys("12");
+			}			
 			driver.findElement(By.cssSelector("#stub_page_Page5 > div.inner")).click();
 			Thread.sleep(3000);
 			driver.findElement(By.id("Claims_No")).click();
@@ -138,32 +165,41 @@ public class CombinedLiability {
 			driver.findElement(By.id("Question.DefaultValue")).sendKeys("Testing");
 			driver.findElement(By.id("Question.Save")).click();
 			Thread.sleep(3000);
+			
+			//Click on Matrix tab, store values in variables and CombinedLiability.properties file
 			driver.findElement(By.linkText("Matrix")).click();	
 			Thread.sleep(3000);
-			String Totalpremium = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
-			String TP = driver.findElement(By.id("TotalPremium_result_span")).getText();
+			String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
+			Totalpremium = Totalpremium.replace( '\u00A3', '*' );
+			String TP = selenium.getText("id=TotalPremiumNet_result_span");
+			TP = TP.replace( '\u00A3', '*' );
+			
+			// Execution occur when script run 1st time.
 			if (Counter == 0)
 			{
 				str11 = Totalpremium;
 				str12 = TP;
 				PolicyID1=CaseID;
 				write.WritePropertyFile("CombinedLiability", "PolicyID1", PolicyID1);
-				write.WritePropertyFile("CombinedLiability", "TotalGrossPremium1", str11);
-				write.WritePropertyFile("CombinedLiability", "TotalNetPremium1", str12);
+				write.WritePropertyFile("CombinedLiability", "TotalGP1", str11);
+				write.WritePropertyFile("CombinedLiability", "TotalNP1", str12);
 			}
+			// Execution occur when script run 2nd time.
 			if (Counter == 1)
 			{
 				str21=Totalpremium;
 				str22=TP;
 				PolicyID2=CaseID;				
 				write.WritePropertyFile("CombinedLiability", "PolicyID2", PolicyID2);
-				write.WritePropertyFile("CombinedLiability", "TotalGrossPremium2", str21);
-				write.WritePropertyFile("CombinedLiability", "TotalNetPremium2", str22);
-				Assert.assertEquals(str21, str11);
-				Assert.assertEquals(str22, str12);
+				write.WritePropertyFile("CombinedLiability", "TotalGP2", str21);
+				write.WritePropertyFile("CombinedLiability", "TotalNP2", str22);
 				
+				//Compare the stored value from the property file.
+				Assert.assertEquals(str21, readp.readDatafrom("CombinedLiability", "TotalGP1"));
+				Assert.assertEquals(str22, readp.readDatafrom("CombinedLiability", "TotalNP1"));				
 			}
-			Counter=Counter+1;
+			driver.findElement(By.linkText("Logout")).click();
+			
 		}
 	
 }

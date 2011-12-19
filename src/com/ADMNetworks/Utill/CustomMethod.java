@@ -78,7 +78,7 @@ public class CustomMethod {
 	}
 	
 	
-	 public int getRandomInteger(int aStart, int aEnd, Random aRandom){
+	public int getRandomInteger(int aStart, int aEnd, Random aRandom){
 		    if ( aStart > aEnd ) {
 		      throw new IllegalArgumentException("Start cannot exceed End.");
 		    }
@@ -90,10 +90,9 @@ public class CustomMethod {
 		    return randomNumber;
 	 }
 	 
-	 public void waitForElementPresent(WebDriver driver, String locator, int timeout) throws Exception {
-		  for (int second = 0; second<200; second++) {
+	public void waitForElementPresent(WebDriver driver, String locator, int timeout) throws Exception {
+		  for (int second = 0; second<timeout; second++) {
 		       if (second >= timeout)
-		           //throw new SeleniumException("Timout finding: " + locator);
 		           try {
 		                if (this.isElementPresent(driver, By.cssSelector(locator)))
 		                    break;
@@ -104,7 +103,7 @@ public class CustomMethod {
 			 
 			}
 	public void waitForElementPresentid(WebDriver driver, String locator, int timeout) throws Exception {
-		  for (int second = 0; second<200; second++) {
+		  for (int second = 0; second<100; second++) {
 		       if (second >= timeout)
 		           try {
 		                if (this.isElementPresent(driver, By.id(locator)))
@@ -115,7 +114,7 @@ public class CustomMethod {
 			 
 			}
 	public void waitForElementPresentlink(WebDriver driver, String locator, int timeout) throws Exception {
-		  for (int second = 0; second<200; second++) {
+		  for (int second = 0; second<100; second++) {
 		       if (second >= timeout)
 		           try {
 		                if (this.isElementPresent(driver, By.linkText(locator)))
@@ -126,7 +125,7 @@ public class CustomMethod {
 			 
 			}
 	public void waitForElementPresentname(WebDriver driver, String locator, int timeout) throws Exception {
-		  for (int second = 0; second<200; second++) {
+		  for (int second = 0; second<100; second++) {
 		       if (second >= timeout)
 		           try {
 		                if (this.isElementPresent(driver, By.name(locator)))
@@ -162,4 +161,32 @@ public class CustomMethod {
 			   }
 	
      }
+	public String getScheme() throws Exception {
+		String scheme = "";
+		int i = Integer.parseInt(readp.readApplicationFile("Scheme"));
+		
+		switch(i){
+		case 0:
+			scheme = "RestaurantCombined";
+			break;
+		case 1:
+			scheme = "CombinedLiability";
+			break;
+		case 2:
+			scheme = "HotelCombined";
+			break;
+		case 3:
+			scheme = "MotorHireAndReward";
+			break;	
+		case 4:
+			scheme = "ResidentialLandlords";
+			break;
+		}
+		
+		System.out.println(scheme);
+		return scheme;
+		
+	}
+		
 }
+

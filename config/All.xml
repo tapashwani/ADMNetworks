@@ -9,6 +9,6 @@
 			<suite-file path="MotorHireAndReward.xml"></suite-file>
 			<suite-file path="ResidentialLandlords.xml"></suite-file>
 			<suite-file path="RestaurantCombined.xml"></suite-file>
-			<suite-file path="UnoccupiedPropertyOwners.xml"></suite-file>
+			<suite-file path="TestChoose.xml"></suite-file>
 	</suite-files>
 </suite> 

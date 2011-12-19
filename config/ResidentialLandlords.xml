@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="5" parallel="classes" name="ADM Networks" annotations="JDK">
+<suite thread-count="5" parallel="classes" name="ResidentialLandlords" annotations="JDK">
     <test name="ResidentialLandlords" junit="false">
 	<classes>
            <class name="com.ADMNetworks.Tests.ResidentialLandlords">
