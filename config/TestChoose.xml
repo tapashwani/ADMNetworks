@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" parallel="classes" name="TestChoose" annotations="JDK">
+    <test name="TestChoose" junit="false">
+	<classes>
+           <class name="com.ADMNetworks.Tests.TestChoose">
+            	<methods>
+            		<include name="testTestChoose" />
+            	</methods>
+            </class>			
+	</classes>
+    </test>
+</suite> 
