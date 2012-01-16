@@ -10,5 +10,13 @@
 			<suite-file path="ResidentialLandlords.xml"></suite-file>
 			<suite-file path="RestaurantCombined.xml"></suite-file>
 			<suite-file path="TestChoose.xml"></suite-file>
-	</suite-files>
+			<suite-file path="RestaurantCombinedNew.xml"></suite-file>
+			<suite-file path="CombinedLiabilityNew.xml"></suite-file>
+			<suite-file path="HotelCombinedNew.xml"></suite-file>
+			<suite-file path="MotorHireAndRewardNew.xml"></suite-file>
+			<suite-file path="ResidentialLandlorsdNew.xml"></suite-file>
+			<suite-file path="SearchPolicyID.xml"></suite-file>
+			<suite-file path="SearchPolicyID_CL.xml"></suite-file>
+			<suite-file path="SearchPolicyID_HC.xml"></suite-file>
+			</suite-files>
 </suite> 

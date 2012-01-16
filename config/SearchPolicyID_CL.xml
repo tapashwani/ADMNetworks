@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" parallel="classes" name="SearchPolicyID_CL" annotations="JDK">
+    <test name="SearchPolicyID_CL" junit="false">
+	<classes>
+           <class name="com.ADMNetworks.Tests.SearchPolicyID_CL">
+            	<methods>
+            		<include name="testSearchPolicyID_CL" />
+            	</methods>
+            </class>			
+	</classes>
+    </test>
+</suite> 

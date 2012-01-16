@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" parallel="classes" name="RestaurantCombinedNew" annotations="JDK">
+    <test name="RestaurantCombinedNew" junit="false">
+	<classes>
+           <class name="com.ADMNetworks.Tests.RestaurantCombinedNew">
+            	<methods>
+            		<include name="testRestaurantCombinedNew" />
+            	</methods>
+            </class>			
+	</classes>
+    </test>
+</suite> 

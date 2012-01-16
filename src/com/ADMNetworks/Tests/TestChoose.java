@@ -45,26 +45,64 @@ public class TestChoose {
 		String scheme = custom.getScheme();
 		if(scheme.equals("RestaurantCombined")){
 			RestaurantCombined RC = new RestaurantCombined();
-			RC.RestaurantCombinedtest(driver, Url, Counter);			
+			RC.RestaurantCombinedtest(driver, Url);			
 		}
 		if(scheme.equals("CombinedLiability")){
 			CombinedLiability CL = new CombinedLiability();
-			CL.CombinedLiabilitytest(driver, Url, Counter);			
+			CL.CombinedLiabilitytest(driver, Url);			
 		}
 		if(scheme.equals("HotelCombined")){
 			HotelCombined HC = new HotelCombined();
-			HC.HotelCombinedtest(driver, Url, Counter);			
+			HC.HotelCombinedtest(driver, Url);			
 		}
 		if(scheme.equals("MotorHireAndReward")){
 			MotorHireAndReward MHAR = new MotorHireAndReward();
-			MHAR.MotorHireAndRewardtest(driver,Url, Counter);			
+			MHAR.MotorHireAndRewardtest(driver,Url);			
 		}		
 		if(scheme.equals("ResidentialLandlords")){
 			ResidentialLandlords RL = new ResidentialLandlords();
-			RL.ResidentialLandlordstest(driver,Url, Counter);			
+			RL.ResidentialLandlordstest(driver,Url);			
+		}
+		if(scheme.equals("RestaurantCombinedNew")){
+			RestaurantCombinedNew RCN = new RestaurantCombinedNew();
+			RCN.RestaurantCombinedNewtest(driver,Url);			
 		}
 		
-		Counter=Counter+1;
+		if(scheme.equals("CombinedLiabilityNew")){
+			CombinedLiabilityNew CLN = new CombinedLiabilityNew();
+			CLN.CombinedLiabilitytNewtest(driver,Url);			
+		}
+		if(scheme.equals("HotelCombinedNew")){
+			HotelCombinedNew HCN = new HotelCombinedNew();
+			HCN.HotelCombinedNewtest(driver,Url);			
+		}
+		if(scheme.equals("MotorHireAndRewardNew")){
+			MotorHireAndRewardNew MHN = new MotorHireAndRewardNew();
+			MHN.MotorHireAndRewardNewtest(driver,Url);			
+		}
+		if(scheme.equals("ResidentialLandlorsdNew")){
+			ResidentialLandlordsNew RLN = new ResidentialLandlordsNew();
+			RLN.ResidentialLandlordsNewtest(driver,Url);			
+		}
+		
+		if(scheme.equals("ShortTermLife")){
+			ShortTermLife STL = new ShortTermLife();
+			STL.testshorttermlife(driver,Url);			
+		}
+		if(scheme.equals("UnoccupiedPropertyOwners")){
+			UnoccupiedPropertyOwners UPO = new UnoccupiedPropertyOwners();
+			UPO.UnoccupiedPropertyOwnerstest(driver,Url);			
+		}
+		if(scheme.equals("Login")){
+			Login log = new Login();
+			log.logintest(driver,Url);			
+		}
+		if(scheme.equals("CasesTab")){
+			CasesTab CT = new CasesTab();
+			CT.CasesTabtest(driver,Url);			
+		}
+	
+	Counter=Counter+1;
 	}
 
 }
