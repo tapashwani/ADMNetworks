@@ -51,7 +51,9 @@ public class ReadProperty{
 		          if(f.exists()){
 			          prop.load(new FileInputStream(f));
 			          value = prop.getProperty(key);  
-	          	}
+	          	}else{
+					System.out.println(fname+".properties file does not exist."); 
+				}
 		   }
 	        catch(Exception e){  
 	           System.out.println("Failed to read from application.properties file.");  
