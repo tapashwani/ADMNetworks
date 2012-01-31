@@ -45,18 +45,21 @@ public class ReadProperty{
 	    public String readDatafrom(String fname, String key){ 
 	    	String value = "";
 	        try{  
-	        	
 		          Properties prop = new Properties();
 		          File f = new File(path + "//src//com/ADMNetworks//Config//"+fname+".properties");
 		          if(f.exists()){
 			          prop.load(new FileInputStream(f));
 			          value = prop.getProperty(key);  
+			          if(value.equals("NA"))
+			          {
+			        	  System.out.println(fname+".properties file does not have records");   
+			          }
 	          	}else{
-					System.out.println(fname+".properties file does not exist."); 
-				}
+	          		System.out.println(fname+".properties file does not exist");  
+	          	}
 		   }
 	        catch(Exception e){  
-	           System.out.println("Failed to read from application.properties file.");  
+	           System.out.println("Failed to read from "+fname+".properties file.");  
 	        }
 	        return value;
 	     } 
