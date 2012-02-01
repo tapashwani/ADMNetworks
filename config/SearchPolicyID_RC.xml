@@ -1,8 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="5" parallel="classes" name="SearchPolicyID_CL" annotations="JDK">
-    <test name="SearchPolicyID_CL" junit="false">
+<suite thread-count="5" parallel="classes" name="SearchPolicyID_RC" annotations="JDK">
+    <test name="SearchPolicyID_RC" junit="false">
 	<classes>
-           <class name="com.ADMNetworks.Tests.SearchPolicyID_CL">
+           <class name="com.ADMNetworks.Tests.SearchPolicyID_RC">
             	<methods>
             		<include name="testLogin" />
             	</methods>

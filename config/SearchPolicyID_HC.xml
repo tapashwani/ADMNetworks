@@ -4,7 +4,7 @@
 	<classes>
            <class name="com.ADMNetworks.Tests.SearchPolicyID_HC">
             	<methods>
-            		<include name="testSearchPolicyID_HC" />
+            		<include name="testLogin" />
             	</methods>
             </class>			
 	</classes>
