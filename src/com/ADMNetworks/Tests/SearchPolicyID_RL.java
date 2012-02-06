@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.annotations.Test;
 
 import com.ADMNetworks.Utill.CustomMethod;
 import com.ADMNetworks.Utill.ReadProperty;
@@ -37,8 +36,12 @@ public class SearchPolicyID_RL {
 		driver.quit();			
 	}	
 	@Test (dataProvider = "DP1")
+	public void testSearchPolicyID_RL(String Url) throws Exception {
+		SearchPolicyID_RLtest(driver, Url,Counter);
+		Counter=Counter+1;
+	}
 	
-	public void testSearchPolicyID_MHR(String Url) throws Exception {		
+	public void SearchPolicyID_RLtest(WebDriver driver,String Url,int Counter) throws Exception {		
 			driver.get(Url);	
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
@@ -81,8 +84,6 @@ public class SearchPolicyID_RL {
 				Assert.assertEquals(str12, readp.readDatafrom("ResidentialLandlords", "TotalNP2"));	
 				Assert.assertEquals(TPNet, readp.readDatafrom("ResidentialLandlords", "TPNet2"));
 				}
-			Counter=Counter+1;
-			
 			driver.findElement(By.linkText("Logout")).click();
 	}
 

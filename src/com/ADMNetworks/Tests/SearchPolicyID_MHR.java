@@ -35,7 +35,12 @@ public class SearchPolicyID_MHR {
 	}	
 	@Test (dataProvider = "DP1")
 	
-	public void testSearchPolicyID_MHR(String Url) throws Exception {		
+	public void testSearchPolicyID_MHR(String Url) throws Exception{
+		SearchPolicyID_MHRtest(driver,Url,Counter );
+		Counter= Counter+1;
+	}
+	
+	public void SearchPolicyID_MHRtest(WebDriver driver, String Url,int Counter) throws Exception {		
 			driver.get(Url);	
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
@@ -78,8 +83,6 @@ public class SearchPolicyID_MHR {
 				Assert.assertEquals(str12, readp.readDatafrom("MotorHireAndReward", "TotalNP2"));	
 				Assert.assertEquals(TPNet, readp.readDatafrom("MotorHireAndReward", "TPNet2"));
 				}
-			Counter=Counter+1;
-			
 			driver.findElement(By.linkText("Logout")).click();
 	}
 	

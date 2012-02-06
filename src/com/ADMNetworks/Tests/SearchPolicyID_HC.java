@@ -34,8 +34,13 @@ public class SearchPolicyID_HC {
 		driver.quit();			
 	}	
 	@Test (dataProvider = "DP1")
+	public void testSearchPolicyID_HC(String Url) throws Exception{
+		
+		SearchPolicyID_HCtest(driver, Url, Counter);
+		Counter=Counter+1;
+	}
 	
-	public void testSearchPolicyID_HC(String Url) throws Exception {		
+	public void SearchPolicyID_HCtest(WebDriver driver, String Url, int Counter) throws Exception {		
 			driver.get(Url);	
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
@@ -78,7 +83,6 @@ public class SearchPolicyID_HC {
 				Assert.assertEquals(str12, readp.readDatafrom("HotelCombined", "TotalNP2"));	
 				Assert.assertEquals(TPNet, readp.readDatafrom("HotelCombined", "TPNet2"));
 				}
-			Counter=Counter+1;
 			
 			driver.findElement(By.linkText("Logout")).click();
 	}

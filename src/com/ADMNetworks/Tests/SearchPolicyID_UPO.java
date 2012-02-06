@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.annotations.Test;
 import com.ADMNetworks.Utill.CustomMethod;
 import com.ADMNetworks.Utill.ReadProperty;
 import com.thoughtworks.selenium.Selenium;
@@ -35,17 +34,21 @@ public class SearchPolicyID_UPO {
 		driver.quit();			
 	}	
 	@Test (dataProvider = "DP1")
+	public void testSearchPolicyID_UPO(String Url) throws Exception {
+		SearchPolicyID_UPOtest(driver, Url,Counter);
+		Counter=Counter+1;
+	}
 	
-	public void testSearchPolicyID_UPO(String Url) throws Exception {		
+	public void SearchPolicyID_UPOtest(WebDriver driver,String Url,int Counter) throws Exception {		
 			driver.get(Url);	
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
 			custom.waitForElementPresentid(driver, "Username",61);			
 			custom.Login(driver, selenium, "Admin");	
 			if (Counter==0){
-			driver.findElement(By.id("ctl00_MainControls_formPolicyId")).sendKeys(readp.readDatafrom("UnoccupiedPropertyOwner", "PolicyID1"));
-			selenium.keyDown("id=ctl00_MainControls_formPolicyId", "\\9");
-			driver.findElement(By.cssSelector("img[alt=\"GO\"]")).click();
+				driver.findElement(By.id("ctl00_MainControls_formPolicyId")).sendKeys(readp.readDatafrom("UnoccupiedPropertyOwner", "PolicyID1"));
+				selenium.keyDown("id=ctl00_MainControls_formPolicyId", "\\9");
+				driver.findElement(By.cssSelector("img[alt=\"GO\"]")).click();
 			}
 			if (Counter==1){
 				driver.findElement(By.id("ctl00_MainControls_formPolicyId")).sendKeys(readp.readDatafrom("UnoccupiedPropertyOwner", "PolicyID2"));
@@ -79,8 +82,6 @@ public class SearchPolicyID_UPO {
 				Assert.assertEquals(str12, readp.readDatafrom("UnoccupiedPropertyOwner", "TotalNP2"));	
 				Assert.assertEquals(TPNet, readp.readDatafrom("UnoccupiedPropertyOwner", "TPNet2"));
 				}
-			Counter=Counter+1;
-			
 			driver.findElement(By.linkText("Logout")).click();
 	}
 

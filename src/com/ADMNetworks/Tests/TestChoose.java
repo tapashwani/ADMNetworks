@@ -16,12 +16,11 @@ public class TestChoose {
 	public WebDriver driver;
 	CustomMethod custom  = new CustomMethod();
 	ReadProperty readp = new ReadProperty();
-	int Counter = 0;
+	private int Counter = 0;
 	String str11="";
 	String str12="";
 	String str21="";
 	String str22="";
-	String PolicyID1,PolicyID2;
 	WritePropertiesFile write = new WritePropertiesFile();
 	
 	@DataProvider(name = "DP1")
@@ -45,53 +44,56 @@ public class TestChoose {
 		String scheme = custom.getScheme();
 		if(scheme.equals("RestaurantCombined")){
 			RestaurantCombined RC = new RestaurantCombined();
-			RC.RestaurantCombinedtest(driver, Url);			
+			RC.RestaurantCombinedtest(driver, Url,Counter);			
 		}
 		if(scheme.equals("CombinedLiability")){
 			CombinedLiability CL = new CombinedLiability();
-			CL.CombinedLiabilitytest(driver, Url);			
+			CL.CombinedLiabilitytest(driver, Url,Counter);			
 		}
 		if(scheme.equals("HotelCombined")){
 			HotelCombined HC = new HotelCombined();
-			HC.HotelCombinedtest(driver, Url);			
+			HC.HotelCombinedtest(driver, Url,Counter);			
 		}
 		if(scheme.equals("MotorHireAndReward")){
 			MotorHireAndReward MHAR = new MotorHireAndReward();
-			MHAR.MotorHireAndRewardtest(driver,Url);			
+			MHAR.MotorHireAndRewardtest(driver,Url,Counter);			
 		}		
 		if(scheme.equals("ResidentialLandlords")){
 			ResidentialLandlords RL = new ResidentialLandlords();
-			RL.ResidentialLandlordstest(driver,Url);			
+			RL.ResidentialLandlordstest(driver,Url,Counter);			
 		}
 		if(scheme.equals("RestaurantCombinedNew")){
 			RestaurantCombinedNew RCN = new RestaurantCombinedNew();
-			RCN.RestaurantCombinedNewtest(driver,Url);			
+			RCN.RestaurantCombinedNewtest(driver,Url,Counter);			
 		}
 		
 		if(scheme.equals("CombinedLiabilityNew")){
 			CombinedLiabilityNew CLN = new CombinedLiabilityNew();
-			CLN.CombinedLiabilitytNewtest(driver,Url);			
+			CLN.CombinedLiabilitytNewtest(driver,Url,Counter);			
 		}
 		if(scheme.equals("HotelCombinedNew")){
 			HotelCombinedNew HCN = new HotelCombinedNew();
-			HCN.HotelCombinedNewtest(driver,Url);			
+			HCN.HotelCombinedNewtest(driver,Url,Counter);			
 		}
 		if(scheme.equals("MotorHireAndRewardNew")){
 			MotorHireAndRewardNew MHN = new MotorHireAndRewardNew();
-			MHN.MotorHireAndRewardNewtest(driver,Url);			
+			MHN.MotorHireAndRewardNewtest(driver,Url,Counter);			
 		}
 		if(scheme.equals("ResidentialLandlorsdNew")){
 			ResidentialLandlordsNew RLN = new ResidentialLandlordsNew();
-			RLN.ResidentialLandlordsNewtest(driver,Url);			
-		}
-		
+			RLN.ResidentialLandlordsNewtest(driver,Url,Counter);			
+		}		
 		if(scheme.equals("ShortTermLife")){
 			ShortTermLife STL = new ShortTermLife();
-			STL.testshorttermlife(driver,Url);			
+			STL.testshorttermlife(driver,Url,Counter);			
 		}
 		if(scheme.equals("UnoccupiedPropertyOwners")){
 			UnoccupiedPropertyOwners UPO = new UnoccupiedPropertyOwners();
-			UPO.UnoccupiedPropertyOwnerstest(driver,Url);			
+			UPO.UnoccupiedPropertyOwnerstest(driver,Url,Counter);			
+		}
+		if(scheme.equals("UnoccupiedPropertyOwnersNew")){
+			UnoccupiedPropertyOwnersNew UPO = new UnoccupiedPropertyOwnersNew();
+			UPO.UnoccupiedPropertyOwnersNewtest(driver,Url,Counter);			
 		}
 		if(scheme.equals("Login")){
 			Login log = new Login();
@@ -101,8 +103,30 @@ public class TestChoose {
 			CasesTab CT = new CasesTab();
 			CT.CasesTabtest(driver,Url);			
 		}
-	
+		if(scheme.equals("SearchPolicyID_CL")){
+			SearchPolicyID_CL SCL = new SearchPolicyID_CL ();
+			SCL.SearchPolicyID_CLtest(driver,Url, Counter);
+		}
+		if(scheme.equals("SearchPolicyID_HC")){
+			SearchPolicyID_HC SHC = new SearchPolicyID_HC ();
+			SHC.SearchPolicyID_HCtest(driver,Url,Counter);
+		}
+		if(scheme.equals("SearchPolicyID_MHR")){
+			SearchPolicyID_MHR SMHR = new SearchPolicyID_MHR ();
+			SMHR.SearchPolicyID_MHRtest(driver,Url, Counter);
+		}
+		if(scheme.equals("SearchPolicyID_RC")){
+			SearchPolicyID_RC SRC = new SearchPolicyID_RC ();
+			SRC.SearchPolicyID_RCtest(driver,Url, Counter);
+		}
+		if(scheme.equals("SearchPolicyID_RL")){
+			SearchPolicyID_RL SRL = new SearchPolicyID_RL ();
+			SRL.SearchPolicyID_RLtest(driver,Url, Counter);
+		}
+		if(scheme.equals("SearchPolicyID_UPO")){
+			SearchPolicyID_UPO SUPO = new SearchPolicyID_UPO ();
+			SUPO.SearchPolicyID_UPOtest(driver,Url, Counter);
+		}
 	Counter=Counter+1;
 	}
-
 }

@@ -36,8 +36,12 @@ public class SearchPolicyID_CL {
 		driver.quit();			
 	}	
 	@Test (dataProvider = "DP1")
-	
-	public void testSearchPolicyID_CL(String Url) throws Exception {		
+	public void testSearchPolicyID_CL(String Url) throws Exception {
+		
+		SearchPolicyID_CLtest(driver,Url, Counter);
+		Counter = Counter+1;
+	}	
+	public void SearchPolicyID_CLtest(WebDriver driver, String Url, int Counter) throws Exception {		
 			driver.get(Url);	
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 			driver.findElement(By.linkText("Existing Users Login")).click();
@@ -52,6 +56,9 @@ public class SearchPolicyID_CL {
 				driver.findElement(By.id("ctl00_MainControls_formPolicyId")).sendKeys(readp.readDatafrom("CombinedLiability", "PolicyID2"));
 				selenium.keyDown("id=ctl00_MainControls_formPolicyId", "\\9");
 				driver.findElement(By.cssSelector("img[alt=\"GO\"]")).click();
+				//if(PolicyID2.equals("NA")){
+					//driver.findElement(By.linkText("Logout")).click();	
+				//}
 			}
 			
 			custom.waitForElementPresentlink(driver, "Endorsements", 51);
@@ -80,7 +87,6 @@ public class SearchPolicyID_CL {
 				Assert.assertEquals(str12, readp.readDatafrom("CombinedLiability", "TotalNP2"));	
 				Assert.assertEquals(TPNet, readp.readDatafrom("CombinedLiability", "TPNet2"));
 				}
-			Counter=Counter+1;
 			
 			driver.findElement(By.linkText("Logout")).click();
 	}
