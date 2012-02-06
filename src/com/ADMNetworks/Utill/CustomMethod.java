@@ -181,7 +181,57 @@ public class CustomMethod {
 		case 4:
 			scheme = "ResidentialLandlords";
 			break;
-		}
+		
+	    case 5:
+			scheme = "RestaurantCombinedNew";
+			break;
+			
+	    case 6:
+			scheme = "CombinedLiabilityNew";
+			break;
+	    case 7:
+			scheme = "HotelCombinedNew";
+			break;
+	    case 8:
+			scheme = "MotorHireAndRewardNew";
+			break;
+	    case 9:
+			scheme = "ResidentialLandlorsdNew";
+			break;
+	    case 10:
+			scheme = "ShortTermLife";
+			break;
+	    case 11:
+			scheme = "UnoccupiedPropertyOwners";
+			break;
+	    case 12:
+			scheme = "UnoccupiedPropertyOwnersNew";
+			break;
+	    case 13:
+			scheme = "Login";
+			break;
+	    case 14:
+			scheme = "CasesTab";
+			break;
+	    case 15:
+			scheme = "SearchPolicyID_CL";
+			break;
+	    case 16:
+			scheme = "SearchPolicyID_HC";
+			break;
+	    case 17:
+			scheme = "SearchPolicyID_MHR";
+			break;
+	    case 18:
+			scheme = "SearchPolicyID_RC";
+			break;
+	    case 19:
+			scheme = "SearchPolicyID_RL";
+			break;
+	    case 20:
+			scheme = "SearchPolicyID_UPO";
+			break;
+	}
 		
 		System.out.println(scheme);
 		return scheme;
