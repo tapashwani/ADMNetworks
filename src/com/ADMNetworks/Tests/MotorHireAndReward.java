@@ -48,24 +48,24 @@ public class MotorHireAndReward {
 	}	
 	@Test (dataProvider = "DP1")
 	public void testMotorHireAndReward(String Url) throws Exception {
-			MotorHireAndRewardtest(driver,Url, Counter);
+			MotorHireAndRewardtest(driver,Url,Counter);
 			Counter = Counter+1;
 		}
 	
-	public void MotorHireAndRewardtest(WebDriver driver,String Url, int Counter) throws Exception{			
+	public void MotorHireAndRewardtest(WebDriver driver,String Url,int Counter) throws Exception{			
 		
 		driver.get(Url);	
 		Selenium selenium = new WebDriverBackedSelenium(driver, Url);
 		
 		//Create new properties file or reset the value if file already exist 
 		if (Counter==0){
-			write.CreateNewFiles("MotorHireReward");
-			write.WritePropertyFile("MotorHireReward", "PolicyID1", "NA");
-			write.WritePropertyFile("MotorHireReward", "PolicyID2", "NA");
-			write.WritePropertyFile("MotorHireReward", "TotalNP1", "NA");
-			write.WritePropertyFile("MotorHireReward", "TotalGP1", "NA");
-			write.WritePropertyFile("MotorHireReward", "TotalNP2", "NA");
-			write.WritePropertyFile("MotorHireReward", "TotalGP2", "NA");
+			write.CreateNewFiles("MotorHireAndReward");
+			write.WritePropertyFile("MotorHireAndReward", "PolicyID1", "NA");
+			write.WritePropertyFile("MotorHireAndReward", "PolicyID2", "NA");
+			write.WritePropertyFile("MotorHireAndReward", "TotalNP1", "NA");
+			write.WritePropertyFile("MotorHireAndReward", "TotalGP1", "NA");
+			write.WritePropertyFile("MotorHireAndReward", "TotalNP2", "NA");
+			write.WritePropertyFile("MotorHireAndReward", "TotalGP2", "NA");
 		}
 		//Click on Quotes tab and fill the answer.
 		driver.findElement(By.id("GetaQuote")).click();
@@ -179,35 +179,40 @@ public class MotorHireAndReward {
 		
 		//Click on Matrix tab, store values in variables and MotorHireReward.properties file
 		driver.findElement(By.linkText("Matrix")).click();
-		Thread.sleep(5000);	
-		String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
-		Totalpremium = Totalpremium.replace( '\u00A3', '*' );
-		String TP = selenium.getText("id=TotalPremiumNet_result_span");
-		TP = TP.replace( '\u00A3', '*' );
+		Thread.sleep(5000);
+		String Basic144 = driver.findElement(By.id("Basic_144_result_span")).getText();
+		Basic144 = Basic144.replace( '\u00A3', '*' );
+		String Basic145 = driver.findElement(By.id("Basic_145_result_span")).getText();
+		Basic145 = Basic145.replace( '\u00A3', '*' );
+		String TPNet = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
+		TPNet = TPNet.replace( '\u00A3', '*' );
 		
 		// Execution occur when script run 1st time.
 		if (Counter == 0)
-		{	str11 = Totalpremium;
-			str12 = TP;
+		{	str11 = Basic144;
+			str12 = Basic145;
 			PolicyID1=CaseID;
-			write.WritePropertyFile("MotorHireReward", "PolicyID1", PolicyID1);
-			write.WritePropertyFile("MotorHireReward", "TotalGP1", str11);
-			write.WritePropertyFile("MotorHireReward", "TotalNP1", str12);
+			write.WritePropertyFile("MotorHireAndReward", "PolicyID1", PolicyID1);
+			write.WritePropertyFile("MotorHireAndReward", "TotalGP1", str11);
+			write.WritePropertyFile("MotorHireAndReward", "TotalNP1", str12);
+			write.WritePropertyFile("MotorHireAndReward", "TPNet1", TPNet);
 		}
 		
 		// Execution occur when script run 2nd time.
 		if (Counter == 1)
 		{
-			str21=Totalpremium;
-			str22=TP;
+			str21 = Basic144;
+			str22 = Basic145;
 			PolicyID2=CaseID;					
-			write.WritePropertyFile("MotorHireReward", "PolicyID2", PolicyID2);
-			write.WritePropertyFile("MotorHireReward", "TotalGP2", str21);
-			write.WritePropertyFile("MotorHireReward", "TotalNP2", str22);
+			write.WritePropertyFile("MotorHireAndReward", "PolicyID2", PolicyID2);
+			write.WritePropertyFile("MotorHireAndReward", "TotalGP2", str21);
+			write.WritePropertyFile("MotorHireAndReward", "TotalNP2", str22);
+			write.WritePropertyFile("MotorHireAndReward", "TPNet2", TPNet);
 			
 			//Compare the stored value from the property file.
-			Assert.assertEquals(str21, readp.readDatafrom("MotorHireReward", "TotalGP1"));
-			Assert.assertEquals(str22, readp.readDatafrom("MotorHireReward", "TotalNP1"));			
+			Assert.assertEquals(str21, readp.readDatafrom("MotorHireAndReward", "TotalGP1"));
+			Assert.assertEquals(str22, readp.readDatafrom("MotorHireAndReward", "TotalNP1"));
+			Assert.assertEquals(TPNet, readp.readDatafrom("MotorHireAndReward", "TPNet1"));
 		}
 		
 		driver.findElement(By.linkText("Logout")).click();		

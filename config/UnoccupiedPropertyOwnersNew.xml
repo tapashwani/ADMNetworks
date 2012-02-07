@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" parallel="classes" name="ADM Networks" annotations="JDK">
+    <test name="UnoccupiedPropertyOwnersNew" junit="false">
+	<classes>
+           <class name="com.ADMNetworks.Tests.UnoccupiedPropertyOwnersNew">
+            	<methods>
+            		<include name="testUnoccupiedPropertyOwnersNew" />
+            	</methods>
+            </class>			
+	</classes>
+    </test>
+</suite> 

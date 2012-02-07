@@ -49,11 +49,11 @@ public class ResidentialLandlords {
 	}	
 	@Test (dataProvider = "DP1") 
 	public void testResidentialLandlords(String Url) throws Exception {	
-			ResidentialLandlordstest(driver,Url, Counter);
+			ResidentialLandlordstest(driver,Url,Counter);
 			Counter=Counter+1;
 	}
 	   
-	public void ResidentialLandlordstest(WebDriver driver,String Url, int Counter) throws Exception{				
+	public void ResidentialLandlordstest(WebDriver driver,String Url,int Counter) throws Exception{				
 		
 			driver.get(Url);
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);
@@ -129,35 +129,40 @@ public class ResidentialLandlords {
 			//Click on Matrix tab, store values in variables and MotorHireReward.properties file
 			driver.findElement(By.linkText("Matrix")).click();	
 			Thread.sleep(4000);
-			String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
-			Totalpremium = Totalpremium.replace( '\u00A3', '*' );
-			String TP = selenium.getText("id=TotalPremiumNet_result_span");
-			TP = TP.replace( '\u00A3', '*' );
+			String Basic_161 = driver.findElement(By.id("Basic_161_result_span")).getText();
+			Basic_161 = Basic_161.replace( '\u00A3', '*' );              
+			String Basic_162 = driver.findElement(By.id("Basic_162_result_span")).getText();
+			Basic_162 = Basic_162.replace( '\u00A3', '*' );
+			String TPNet = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
+			TPNet = TPNet.replace( '\u00A3', '*' );
 			
 			// Execution occur when script run 1st time.
 			if (Counter == 0)
 			{
-				str11 = Totalpremium;
-				str12 = TP;
+				str11 = Basic_161;
+				str12 = Basic_162;
 				PolicyID1=CaseID;
 				write.WritePropertyFile("ResidentialLandlords", "PolicyID1", PolicyID1);
 				write.WritePropertyFile("ResidentialLandlords", "TotalGP1", str11);
 				write.WritePropertyFile("ResidentialLandlords", "TotalNP1", str12);
+				write.WritePropertyFile("ResidentialLandlords", "TPNet1", TPNet);
 			}
 			
 			// Execution occur when script run 2nd time.
 			if (Counter == 1)
 			{
-				str21=Totalpremium;
-				str22=TP;
+				str21=Basic_161;
+				str22=Basic_162;
 				PolicyID2=CaseID;				
 				write.WritePropertyFile("ResidentialLandlords", "PolicyID2", PolicyID2);
 				write.WritePropertyFile("ResidentialLandlords", "TotalGP2", str21);
 				write.WritePropertyFile("ResidentialLandlords", "TotalNP2", str22);
+				write.WritePropertyFile("ResidentialLandlords", "TPNet2", TPNet);
 				
 				//Compare the stored value from the property file.
 				Assert.assertEquals(str21, readp.readDatafrom("ResidentialLandlords", "TotalGP1"));
 				Assert.assertEquals(str22, readp.readDatafrom("ResidentialLandlords", "TotalNP1"));
+				Assert.assertEquals(TPNet, readp.readDatafrom("ResidentialLandlords", "TPNet1"));
 				
 			}
 			

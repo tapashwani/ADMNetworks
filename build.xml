@@ -204,7 +204,44 @@
             <xmlfileset dir="${ws.home}/config" includes="MotorHireAndRewardNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
+    </target> 
+ 	<!--For ResidentialLandlordsNew with refferal condition-->
+	<target name="ResidentialLandlordsNew" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="MResidentialLandlordsNew.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
     </target>
+	<!--For RestaurantCombinedNew with refferal condition-->
+	<target name="RestaurantCombinedNew" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="RestaurantCombinedNew.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>        
+    </target>
+	<!--For UnoccupiedPropertyOwnersNew with refferal condition-->
+	<target name="UnoccupiedPropertyOwnersNew" depends="compile,init">
+        <testng classpath="${test.classpath}:${test.dest}" 
+				outputdir="${test-results.dir}"
+				suitename="singletest"
+				haltonfailure="true"
+				useDefaultListeners="false"
+				listeners="org.uncommons.reportng.HTMLReporter">
+            <xmlfileset dir="${ws.home}/config" includes="UnoccupiedPropertyOwnersNew.xml"/>
+			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
+        </testng>  
+    </target>
+	
 	<!--Search Policy ID(Which will read the policy ID from the property file and match the data available at the matrix page with the data stored in the property file.)-->
 	<!--For Combined Liability-->
 	<target name="SearchPolicyID_CL" depends="compile,init">

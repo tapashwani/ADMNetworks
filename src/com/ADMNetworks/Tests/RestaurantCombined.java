@@ -48,11 +48,11 @@ public class RestaurantCombined {
 	@Test (dataProvider = "DP1")
 	public void testRestaurantCombined(String Url) throws Exception {
 		
-		RestaurantCombinedtest(driver, Url, Counter);
+		RestaurantCombinedtest(driver, Url,Counter);
 		Counter=Counter+1;
 	}
 	
-	public void RestaurantCombinedtest(WebDriver driver, String Url, int Counter) throws Exception
+	public void RestaurantCombinedtest(WebDriver driver, String Url,int Counter) throws Exception
 	{
 		
 		driver.get(Url);	
@@ -169,30 +169,34 @@ public class RestaurantCombined {
 		//Click on Matrix tab, store values in variables and RestaurantCombined.properties file
 		driver.findElement(By.linkText("Matrix")).click();
 		Thread.sleep(3000);
-		String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
-		Totalpremium = Totalpremium.replace( '\u00A3', '*' );
-		String TP = selenium.getText("id=TotalPremiumNet_result_span");
-		TP = TP.replace( '\u00A3', '*' );
+		String Basic128 = driver.findElement(By.id("Basic_128_result_span")).getText();
+		Basic128 = Basic128.replace( '\u00A3', '*' );
+		String Basic129 = driver.findElement(By.id("Basic_129_result_span")).getText();
+		Basic129 = Basic129.replace( '\u00A3', '*' );
+		String TPNet = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
+		TPNet = TPNet.replace( '\u00A3', '*' );
 		
 		// Execution occur when script run 1st time.
 		if (Counter == 0)
 		{
-			str11 = Totalpremium;
-			str12 = TP;
+			str11 = Basic128;
+			str12 = Basic129;
 			PolicyID1=CaseID;
 			write.WritePropertyFile("RestaurantCombined", "PolicyID1", PolicyID1);
 			write.WritePropertyFile("RestaurantCombined", "TotalGP1", str11);
 			write.WritePropertyFile("RestaurantCombined", "TotalNP1", str12);
+			write.WritePropertyFile("RestaurantCombined", "TPNet1", TPNet);
 		}
 		// Execution occur when script run 2nd time.
 		if (Counter == 1)
 		{
-			str21=Totalpremium;
-			str22=TP;
+			str21=Basic128;
+			str22=Basic129;
 			PolicyID2=CaseID;				
 			write.WritePropertyFile("RestaurantCombined", "PolicyID2", PolicyID2);
 			write.WritePropertyFile("RestaurantCombined", "TotalGP2", str21);
 			write.WritePropertyFile("RestaurantCombined", "TotalNP2", str22);
+			write.WritePropertyFile("RestaurantCombined", "TPNet2", TPNet);
 			
 			//Compare the stored value from the property file.
 			Assert.assertEquals(str21, readp.readDatafrom("RestaurantCombined", "TotalGP1"));

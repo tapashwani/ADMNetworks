@@ -46,10 +46,10 @@ public class HotelCombined {
 	}	
 	@Test (dataProvider = "DP1")
 	public void testHotelCombined(String Url) throws Exception {		
-		HotelCombinedtest(driver,Url, Counter);
+		HotelCombinedtest(driver,Url,Counter);
 		Counter=Counter+1;
 	}
-	public void HotelCombinedtest(WebDriver driver,String Url, int Counter) throws Exception{		
+	public void HotelCombinedtest(WebDriver driver,String Url,int Counter) throws Exception{		
 		
 		driver.get(Url);	
 		Selenium selenium = new WebDriverBackedSelenium(driver, Url);
@@ -182,35 +182,39 @@ public class HotelCombined {
 		Assert.assertTrue(selenium.isTextPresent("exact:IMPORTANT: Your referral reference is " + CaseID));
 		System.out.println(CaseID);
 		driver.findElement(By.id("ctl00_MainContent_btnViewAccount")).click();
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		
 		//Click on Matrix tab, store values in variables and HotelCombined.properties file
 		driver.findElement(By.linkText("Matrix")).click();
 		Thread.sleep(3000);	
-		String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
-		Totalpremium = Totalpremium.replace( '\u00A3', '*' );
-		String TP = selenium.getText("id=TotalPremiumNet_result_span");
-		TP = TP.replace( '\u00A3', '*' );
+		String Basic140 = driver.findElement(By.id("Basic_140_result_span")).getText();
+		Basic140 = Basic140.replace( '\u00A3', '*' );
+		String Basic141 = driver.findElement(By.id("Basic_141_result_span")).getText();
+		Basic141 = Basic141.replace( '\u00A3', '*' );
+		String TPNet = driver.findElement(By.id("TotalPremiumNet_result_span")).getText();
+		TPNet = TPNet.replace( '\u00A3', '*' );
 		
 		// Execution occur when script run 1st time.
 		if (Counter == 0)
 		{	
-			str11 = Totalpremium;
-			str12 = TP;
+			str11 = Basic140;
+			str12 = Basic141;
 			PolicyID1=CaseID;
 			write.WritePropertyFile("HotelCombined", "PolicyID1", PolicyID1);
 			write.WritePropertyFile("HotelCombined", "TotalGP1", str11);
 			write.WritePropertyFile("HotelCombined", "TotalNP1", str12);
+			write.WritePropertyFile("HotelCombined", "TPNet1", TPNet);
 		}
 		// Execution occur when script run 2nd time.
 		if (Counter == 1)
 		{
-			str21=Totalpremium;
-			str22=TP;
+			str21 = Basic140;
+			str22 = Basic141;
 			PolicyID2=CaseID;							
 			write.WritePropertyFile("HotelCombined", "PolicyID2", PolicyID2);
 			write.WritePropertyFile("HotelCombined", "TotalGP2", str21);
 			write.WritePropertyFile("HotelCombined", "TotalNP2", str22);
+			write.WritePropertyFile("HotelCombined", "TPNet2", TPNet);
 			
 			//Compare the stored value from the property file.
 			Assert.assertEquals(str21, readp.readDatafrom("HotelCombined", "TotalGP1"));

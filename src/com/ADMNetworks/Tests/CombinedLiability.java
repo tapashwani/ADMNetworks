@@ -46,7 +46,7 @@ public class CombinedLiability {
 		CombinedLiabilitytest(driver,Url,Counter);
 		Counter=Counter+1;
 	}
-	public void CombinedLiabilitytest(WebDriver driver,String Url, int Counter) throws Exception{
+	public void CombinedLiabilitytest(WebDriver driver,String Url,int Counter) throws Exception{
 		
 			driver.get(Url);		
 			Selenium selenium = new WebDriverBackedSelenium(driver, Url);	
@@ -77,7 +77,7 @@ public class CombinedLiability {
 			Thread.sleep(3000);
 			driver.findElement(By.id("FullTradingName")).clear();
 			driver.findElement(By.id("FullTradingName")).sendKeys("360logica");
-			selenium.select("id=InceptDate_ddlDate_Third", "label=2011");
+			selenium.select("id=InceptDate_ddlDate_Third", "label=2012");
 			selenium.select("id=Company__Type", "label=Limited Company");
 			driver.findElement(By.id("Trading__Duration")).clear();
 			driver.findElement(By.id("Trading__Duration")).sendKeys("2010");
@@ -168,31 +168,36 @@ public class CombinedLiability {
 			
 			//Click on Matrix tab, store values in variables and CombinedLiability.properties file
 			driver.findElement(By.linkText("Matrix")).click();	
-			Thread.sleep(3000);
-			String Totalpremium = selenium.getText("id=TotalPremiumNet_result_span");
-			Totalpremium = Totalpremium.replace( '\u00A3', '*' );
-			String TP = selenium.getText("id=TotalPremiumNet_result_span");
-			TP = TP.replace( '\u00A3', '*' );
+			Thread.sleep(3000);	
+			String Basic168 = driver.findElement(By.id("Basic_168_result_span")).getText();
+			Basic168 = Basic168.replace( '\u00A3', '*' );
+			String Basic169 = driver.findElement(By.id("Basic_169_result_span")).getText();
+			Basic169 = Basic169.replace( '\u00A3', '*' );
+			
+			String TPNet = selenium.getText("id=TotalPremiumNet_result_span");
+			TPNet = TPNet.replace( '\u00A3', '*' );
 			
 			// Execution occur when script run 1st time.
 			if (Counter == 0)
 			{
-				str11 = Totalpremium;
-				str12 = TP;
+				str11 = Basic168;
+				str12 = Basic169;
 				PolicyID1=CaseID;
 				write.WritePropertyFile("CombinedLiability", "PolicyID1", PolicyID1);
 				write.WritePropertyFile("CombinedLiability", "TotalGP1", str11);
 				write.WritePropertyFile("CombinedLiability", "TotalNP1", str12);
+				write.WritePropertyFile("CombinedLiability", "TPNet1", TPNet);
 			}
 			// Execution occur when script run 2nd time.
 			if (Counter == 1)
 			{
-				str21=Totalpremium;
-				str22=TP;
+				str21=Basic168;
+				str22=Basic169;
 				PolicyID2=CaseID;				
 				write.WritePropertyFile("CombinedLiability", "PolicyID2", PolicyID2);
 				write.WritePropertyFile("CombinedLiability", "TotalGP2", str21);
 				write.WritePropertyFile("CombinedLiability", "TotalNP2", str22);
+				write.WritePropertyFile("CombinedLiability", "TPNet2", TPNet);
 				
 				//Compare the stored value from the property file.
 				Assert.assertEquals(str21, readp.readDatafrom("CombinedLiability", "TotalGP1"));
