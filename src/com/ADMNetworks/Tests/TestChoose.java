@@ -69,23 +69,23 @@ public class TestChoose {
 		
 		if(scheme.equals("CombinedLiabilityNew")){
 			CombinedLiabilityNew CLN = new CombinedLiabilityNew();
-			CLN.CombinedLiabilitytNewtest(driver,Url,Counter);			
+			CLN.testCombinedLiabilitytNew(driver,Url,Counter);			
 		}
 		if(scheme.equals("HotelCombinedNew")){
 			HotelCombinedNew HCN = new HotelCombinedNew();
-			HCN.HotelCombinedNewtest(driver,Url,Counter);			
+			HCN.HotelCombinedtest(driver,Url,Counter);			
 		}
 		if(scheme.equals("MotorHireAndRewardNew")){
 			MotorHireAndRewardNew MHN = new MotorHireAndRewardNew();
-			MHN.MotorHireAndRewardNewtest(driver,Url,Counter);			
+			MHN.MotorHireAndRewardtest(driver,Url);			
 		}
 		if(scheme.equals("ResidentialLandlorsdNew")){
 			ResidentialLandlordsNew RLN = new ResidentialLandlordsNew();
-			RLN.ResidentialLandlordsNewtest(driver,Url,Counter);			
+			RLN.ResidentialLandlordsNewtest(driver,Url);			
 		}		
 		if(scheme.equals("ShortTermLife")){
 			ShortTermLife STL = new ShortTermLife();
-			STL.testshorttermlife(driver,Url,Counter);			
+			STL.ShortTermLifetest(Url);			
 		}
 		if(scheme.equals("UnoccupiedPropertyOwners")){
 			UnoccupiedPropertyOwners UPO = new UnoccupiedPropertyOwners();
@@ -97,11 +97,11 @@ public class TestChoose {
 		}
 		if(scheme.equals("Login")){
 			Login log = new Login();
-			log.logintest(driver,Url);			
+			log.testLogin(Url);			
 		}
 		if(scheme.equals("CasesTab")){
 			CasesTab CT = new CasesTab();
-			CT.CasesTabtest(driver,Url);			
+			CT.testCasesTab(Url);			
 		}
 		if(scheme.equals("SearchPolicyID_CL")){
 			SearchPolicyID_CL SCL = new SearchPolicyID_CL ();
