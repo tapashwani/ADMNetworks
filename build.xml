@@ -6,14 +6,13 @@
 
 <!-- ========== Initialize Properties =================================== -->
     <property environment="env"/>
-    <property file="./build.properties"/>
-    
+        
     <!--<property name="webSite" value="http://www.manta.com" />-->
     <property name="test-results.dir" value="test-output" />
    
     <target name="setClassPath" unless="test.classpath">
         <path id="classpath_jars">
-            <fileset dir="${ws.home}/lib" includes="*.jar"/>
+            <fileset dir="lib" includes="*.jar"/>
         </path>
         <pathconvert pathsep=":" 
             property="test.classpath" 
@@ -38,26 +37,26 @@
 
     <!-- clean -->
     <target name="clean">
-        <delete dir="${test.dest}"/>
+        <delete dir="build"/>
 		<delete dir="${test-results.dir}" />
     </target>
 
     <!-- compile -->
     <target name="compile" depends="init, clean" > 
 		<delete includeemptydirs="true" quiet="true">
-            <fileset dir="${test.dest}" includes="**/*"/>			
+            <fileset dir="build" includes="**/*"/>			
 		</delete>
         <echo message="making directory..."/>
-		<mkdir dir="${test.dest}"/>
+		<mkdir dir="build"/>
 		<mkdir dir="${test-results.dir}"/>
         <!-- <echo message="classpath: ${test.classpath}"/> -->
         <echo message="compiling..."/>
         <javac
             debug="true" 
-            destdir="${test.dest}" 
+            destdir="build" 
             includes="*/*.java" 
-            srcdir="${test.src}" 
-            target="1.5" 
+            srcdir="src/com/ADMNetworks" 
+            target="1.7" 
             classpath="${test.classpath}"          
   
         ></javac>
@@ -70,174 +69,174 @@
     <!-- run -->
     
 	<target name="runAll" depends="compile,init">
-         <testng classpath="${test.classpath}:${test.dest}" 
+         <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="All.xml"/>	
+            <xmlfileset dir="config" includes="All.xml"/>	
 			<sysproperty key="org.uncommons.reportng.title" value="My Test Report"/>				
         </testng>        
     </target>
 	
 	<target name="login" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="login.xml"/>
+            <xmlfileset dir="config" includes="login.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="CasesTab" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"				
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">	
-            <xmlfileset dir="${ws.home}/config" includes="CasesTab.xml"/>
+            <xmlfileset dir="config" includes="CasesTab.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>				
         </testng>        
     </target>
 	<target name="HotelCombined" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="HotelCombined.xml"/>
+            <xmlfileset dir="config" includes="HotelCombined.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="CombinedLiability" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="CombinedLiability.xml"/>
+            <xmlfileset dir="config" includes="CombinedLiability.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="MotorHireAndReward" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="MotorHireAndReward.xml"/>
+            <xmlfileset dir="config" includes="MotorHireAndReward.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="ResidentialLandlords" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="ResidentialLandlords.xml"/>
+            <xmlfileset dir="config" includes="ResidentialLandlords.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="RestaurantCombined" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="RestaurantCombined.xml"/>
+            <xmlfileset dir="config" includes="RestaurantCombined.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<target name="UnoccupiedPropertyOwners" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="UnoccupiedPropertyOwners.xml"/>
+            <xmlfileset dir="config" includes="UnoccupiedPropertyOwners.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>  
     </target>
 	<!--For CombinedLiabilityNew with refferal condition-->
 	<target name="CombinedLiabilityNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="CombinedLiabilityNew.xml"/>
+            <xmlfileset dir="config" includes="CombinedLiabilityNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For HotelCombinedNew with refferal condition-->
 	<target name="HotelCombinedNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="HotelCombinedNew.xml"/>
+            <xmlfileset dir="config" includes="HotelCombinedNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For MotorHireAndRewardNew with refferal condition-->
 	<target name="MotorHireAndRewardNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="MotorHireAndRewardNew.xml"/>
+            <xmlfileset dir="config" includes="MotorHireAndRewardNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target> 
  	<!--For ResidentialLandlordsNew with refferal condition-->
 	<target name="ResidentialLandlordsNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="MResidentialLandlordsNew.xml"/>
+            <xmlfileset dir="config" includes="MResidentialLandlordsNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For RestaurantCombinedNew with refferal condition-->
 	<target name="RestaurantCombinedNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="RestaurantCombinedNew.xml"/>
+            <xmlfileset dir="config" includes="RestaurantCombinedNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For UnoccupiedPropertyOwnersNew with refferal condition-->
 	<target name="UnoccupiedPropertyOwnersNew" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="UnoccupiedPropertyOwnersNew.xml"/>
+            <xmlfileset dir="config" includes="UnoccupiedPropertyOwnersNew.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>  
     </target>
@@ -245,85 +244,85 @@
 	<!--Search Policy ID(Which will read the policy ID from the property file and match the data available at the matrix page with the data stored in the property file.)-->
 	<!--For Combined Liability-->
 	<target name="SearchPolicyID_CL" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_CL.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_CL.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For HotelCombined-->
 	<target name="SearchPolicyID_HC" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_HC.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_HC.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For MotorHireAndReward-->
 	<target name="SearchPolicyID_MHR" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_MHR.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_MHR.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For RestaurantCombined-->
 	<target name="SearchPolicyID_RC" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_RC.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_RC.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For ResidentialLandlords-->
 	<target name="SearchPolicyID_RL" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_RL.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_RL.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	<!--For UnoccupiedPropertyOwners-->
 	<target name="SearchPolicyID_UPO" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="SearchPolicyID_UPO.xml"/>
+            <xmlfileset dir="config" includes="SearchPolicyID_UPO.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
 	
 	<target name="TestChoose" depends="compile,init">
-        <testng classpath="${test.classpath}:${test.dest}" 
+        <testng classpath="${test.classpath}:build" 
 				outputdir="${test-results.dir}"
 				suitename="singletest"
 				haltonfailure="true"
 				useDefaultListeners="false"
 				listeners="org.uncommons.reportng.HTMLReporter">
-            <xmlfileset dir="${ws.home}/config" includes="TestChoose.xml"/>
+            <xmlfileset dir="config" includes="TestChoose.xml"/>
 			<sysproperty key="org.uncommons.reportng.title" value="ADM Networks Test Report"/>			
         </testng>        
     </target>
