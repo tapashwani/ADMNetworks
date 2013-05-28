@@ -33,8 +33,7 @@ public class Login {
 	
 	@AfterMethod
 	public void tearDown() throws Exception {
-		driver.quit();	
-		
+		driver.quit();		
 	}	
 
 	@Test (dataProvider = "DP1")
